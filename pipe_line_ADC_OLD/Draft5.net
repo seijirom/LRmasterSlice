@@ -1,0 +1,37 @@
+* C:\Users\seijirom\Dropbox\work\LRmasterSlice\pipe_line_ADC\Draft5.asc
+XX1 N002 N003 N005 N004 N001 N006 comp_inv_tgate
+V1 N001 0 1.6v
+V2 N006 0 -1.6v
+V3 N003 0 PWL(0 5mv 7m 5mv 7.001m -2mv 14m -2mv 14.001m 1mv 21m 1mv 21.001m -500uv)
+V4 N002 0 PULSE(-1.6 1.6 1m 1u 1u 2m 7m)
+V5 N005 0 PULSE(-1.6 1.6 4m 1u 1u 2m 7m)
+
+* block symbol definitions
+.subckt comp_inv_tgate C COMP_IN R COMP_OUT DVDD DVSS
+XX1 N004 DVDD DVSS N002 inv_ph
+XX2 R N003 N001 N002 DVDD DVSS t_gate
+XX3 C N005 N002 COMP_OUT DVDD DVSS t_gate
+XX4 C N005 COMP_IN N001 DVDD DVSS t_gate
+XX5 R DVDD DVSS N003 inv_ph
+XX6 C DVDD DVSS N005 inv_ph
+C1 N004 N001 100p
+.ends comp_inv_tgate
+
+.subckt inv_ph A DVDD DVSS Y
+M助1 DVDD A Y DVDD pch l=1u w=4u m=1
+M助2 Y A DVSS DVSS nch l=1u w=1u m=1
+.ends inv_ph
+
+.subckt t_gate SW SW_X A B DVDD DVSS
+M助1 B SW_X A DVDD pch l=1u w=4u m=8
+M助2 A SW B DVSS nch l=1u w=1u m=8
+.ends t_gate
+
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\seijirom\Documents\LTspiceXVII\lib\cmp\standard.mos
+.include "PK35_minimum_tt.lib"
+.param mismatch=1 mos_sigma_global=1
+.tran 0 28m 0 1u
+.backanno
+.end

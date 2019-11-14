@@ -1,0 +1,61 @@
+* Created by KLayout
+
+* cell comp_plf
+.SUBCKT comp_plf
+* net 2 xstby
+* net 5 out
+* net 6 vdda
+* net 10 inp
+* net 11 inn
+* net 17 stby,vssa
+* device instance $1 r180 *1 -110.5,399.5 CAP
+C$1 1 16 1.032e-012
+* device instance $2 m90 *1 -71.5,365 CAP
+C$2 5 1 1.032e-012
+* device instance $3 m45 *1 -40,364.5 CAP
+C$3 17 5 1.032e-012
+* device instance $4 m0 *1 -87.4,398 PMOS
+M$4 1 4 6 19 PMOS L=1.2U W=200U AS=220P AD=220P PS=242U PD=242U
+* device instance $14 r0 *1 -134.5,398 PMOS
+M$14 20 2 17 21 PMOS L=1U W=20U AS=40P AD=40P PS=44U PD=44U
+* device instance $15 r0 *1 -144.4,401.25 PMOS
+M$15 22 4 3 18 PMOS L=1.2U W=13.5U AS=27P AD=27P PS=31U PD=31U
+* device instance $16 r0 *1 -154.9,363.6 NMOS
+M$16 17 14 14 17 NMOS L=1.2U W=7.2U AS=14.4P AD=14.4P PS=18.4U PD=18.4U
+* device instance $17 m90 *1 -162.1,381.225 NMOS
+M$17 13 12 4 17 NMOS L=1.2U W=6.45U AS=12.9P AD=12.9P PS=16.9U PD=16.9U
+* device instance $18 r0 *1 -153.4,381.225 NMOS
+M$18 14 12 12 17 NMOS L=1.2U W=6.45U AS=12.9P AD=12.9P PS=16.9U PD=16.9U
+* device instance $19 r0 *1 -162.9,358.55 NMOS
+M$19 9 14 13 17 NMOS L=1.2U W=18.1U AS=36.2P AD=36.2P PS=40.2U PD=40.2U
+* device instance $20 m90 *1 -153,351.15 NMOS
+M$20 17 2 9 17 NMOS L=2U W=3.3U AS=6.6P AD=6.6P PS=10.6U PD=10.6U
+* device instance $21 r0 *1 -132.9,369.5 PMOS
+M$21 3 11 7 3 PMOS L=1.2U W=10U AS=20P AD=20P PS=24U PD=24U
+* device instance $22 m90 *1 -142.1,369.5 PMOS
+M$22 3 10 15 3 PMOS L=1.2U W=10U AS=20P AD=20P PS=24U PD=24U
+* device instance $23 r0 *1 -131.4,351.35 NMOS
+M$23 17 15 7 17 NMOS L=1.2U W=3.7U AS=7.4P AD=7.4P PS=11.4U PD=11.4U
+* device instance $24 m90 *1 -142.1,351.35 NMOS
+M$24 17 15 15 17 NMOS L=1.2U W=3.7U AS=7.4P AD=7.4P PS=11.4U PD=11.4U
+* device instance $25 m90 *1 -162.1,401.4 PMOS
+M$25 23 4 4 18 PMOS L=1.2U W=13.8U AS=27.6P AD=27.6P PS=31.6U PD=31.6U
+* device instance $26 r0 *1 -153.4,401.4 PMOS
+M$26 24 4 12 18 PMOS L=1.2U W=13.8U AS=27.6P AD=27.6P PS=31.6U PD=31.6U
+* device instance $27 r0 *1 -20.9,355.665 NMOS
+M$27 17 8 5 17 NMOS L=1.2U W=24.66U AS=36.99P AD=36.99P PS=42.99U PD=42.99U
+* device instance $29 m45 *1 -39.5,405 PMOS
+M$29 8 17 1 25 PMOS L=1U W=20U AS=30P AD=30P PS=36U PD=36U
+* device instance $31 r0 *1 -26.4,400 PMOS
+M$31 6 8 5 6 PMOS L=1.2U W=80U AS=100P AD=100P PS=110U PD=110U
+* device instance $35 r0 *1 -123.5,352.5 NMOS
+M$35 17 2 17 17 NMOS L=1U W=12U AS=18P AD=18P PS=24U PD=24U
+* device instance $37 m135 *1 -114.1,377.4 NMOS
+M$37 16 12 7 17 NMOS L=1.2U W=28.8U AS=36P AD=36P PS=46U PD=46U
+* device instance $41 m0 *1 -45.5,389.5 NMOS
+M$41 8 26 17 17 NMOS L=1U W=12U AS=15P AD=15P PS=25U PD=25U
+* device instance $45 m0 *1 -101.9,364.1 NMOS
+M$45 1 7 17 17 NMOS L=1.2U W=95.2U AS=119P AD=119P PS=129U PD=129U
+* device instance $49 m135 *1 -40.5,398 NMOS
+M$49 8 2 1 17 NMOS L=1U W=12U AS=24P AD=24P PS=28U PD=28U
+.ENDS comp_plf

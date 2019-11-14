@@ -1,0 +1,7 @@
+* Z:\home\seijirom\Dropbox\work\LRmasterSlice\pipe_line_ADC\t_gate.asc
+
+.subckt t_gate SW SW_X A B DVDD DVSS
+M§U1 A SW_X B DVDD pch l=1u w=4u m=8
+M§U2 A SW B DVSS nch l=1u w=1u m=8
+.ends t_gate
+

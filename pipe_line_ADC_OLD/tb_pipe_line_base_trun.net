@@ -1,0 +1,66 @@
+* C:\Users\seijirom\Dropbox\work\LRmasterSlice\pipe_line_ADC\tb_pipe_line_base_trun.asc
+XX1 N003 N005 N004 N002 N001 N007 N006 vout NC_01 NC_02 pipe_line_base
+V1 N007 0 -1.6v
+V2 N006 0 0v
+V3 N005 0 PWL(0 -1.6v 300m 1.6v)
+V4 N004 0 PULSE(-1.6v 1.6v 3m 1u 1u 2m 6m)
+V5 N003 0 PULSE(-1.6 1.6 0 1u 1u 2m 6m)
+V7 N001 0 1.6v
+
+* block symbol definitions
+.subckt pipe_line_base C IN R compare AVDD AVEE COM VOUT VREFH VREFL
+XX1 COM COM AVDD AVEE VOUT N006 comp_medium
+XXR2 R R_X N006 COM AVDD AVEE t_gate
+XXR3 R R_X IN N007 AVDD AVEE t_gate
+XXC2 C C_X VOUT N007 AVDD AVEE t_gate
+XXR4 R R_X IN N005 AVDD AVEE t_gate
+XXC1 C C_X N005 N003 AVDD AVEE t_gate
+XX7 C AVDD AVEE C_X inv_ph
+XX8 R AVDD AVEE R_X inv_ph
+XX9 COM N004 AVDD AVEE compare COM comp_medium
+XX10 N001 N002 N003 VREFH AVDD AVEE t_gate
+XX11 N002 N001 N003 VREFL AVDD AVEE t_gate
+XX12 N002 AVDD AVEE N001 inv_ph
+XXR1 R R_X IN N004 AVDD AVEE t_gate
+XX2 compare R R_X AVDD AVEE N002 inv_lat
+XC1 N005 N006 CPIP w=10u l=10u
+XC2 N006 N007 CPIP w=10u l=10u
+.ends pipe_line_base
+
+.subckt comp_medium BIAS INP AVDD AVSS COMP_OUT INM
+M助1 AVDD N001 N001 AVDD pch l=8u w=4u m=pm_p1
+M助2 1st_AMP INP N002 AVSS nch w=1u l=4u m=pm_n1
+M助3 N001 INM N002 AVSS nch w=1u l=4u m=pm_n1
+M助4 AVDD N001 1st_AMP AVDD pch l=8u w=4u m=pm_p1
+M助5 N002 BIAS AVSS AVSS nch w=1u l=pl_b1 m=1
+M助6 AVDD 1st_AMP COMP_OUT AVDD pch l=1u w=4u m=pm_p2
+M助7 COMP_OUT BIAS AVSS AVSS nch w=pw_b2 l=1u m=1
+XC1 COMP_OUT 1st_AMP CPIP w=10u l=10u
+.param          pm_p1=2                         pm_n1=6                         pl_b1=40u                       pm_p2=54                        pw_b2=6u
+.ends comp_medium
+
+.subckt t_gate SW SW_X A B DVDD DVSS
+M助1 B SW_X A DVDD pch l=1u w=4u m=8
+M助2 A SW B DVSS nch l=1u w=1u m=8
+.ends t_gate
+
+.subckt inv_ph A DVDD DVSS Y
+M助1 DVDD A Y DVDD pch l=1u w=4u m=1
+M助2 Y A DVSS DVSS nch l=1u w=1u m=1
+.ends inv_ph
+
+.subckt inv_lat D LAT LAT_X DVDD DVSS Q_X
+XX1 LAT_X LAT N001 N002 DVDD DVSS t_gate
+XX2 LAT LAT_X D N001 DVDD DVSS t_gate
+XX3 N001 DVDD DVSS Q_X inv_ph
+XX4 Q_X DVDD DVSS N002 inv_ph
+.ends inv_lat
+
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\seijirom\Documents\LTspiceXVII\lib\cmp\standard.mos
+.tran 0 300m 0 10u
+.include "PK35_minimum_tt.lib"
+.param mismatch=1 mos_sigma_global=1
+.backanno
+.end

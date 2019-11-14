@@ -1,0 +1,11 @@
+* C:\Users\seijirom\Dropbox\work\LRmasterSlice\Power_On_Reset\S_NOR2.asc
+
+.subckt s_nor2 IN2 VDDA OUT VSSA IN1
+XM40 N001 IN2 vdda vdda MPL l=0.8u w=6.6u pd=w+l+l ps=pd ad=w*l as=ad m=1
+XM43 OUT IN1 vssa vssa MNL l=0.8u w=3.3u pd=w+l+l ps=pd ad=w*l as=ad m=1
+C1 OUT vssa 0.1p
+XM1 OUT IN1 N001 NC_01 MPL l=0.8u w=6.6u pd=w+l+l ps=pd ad=w*l as=ad m=1
+XM2 OUT IN2 vssa vssa MNL l=0.8u w=3.3u pd=w+l+l ps=pd ad=w*l as=ad m=1
+.inc PK35_all_tt.lib
+.ends s_nor2
+

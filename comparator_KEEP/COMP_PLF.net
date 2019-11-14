@@ -1,0 +1,30 @@
+* Z:\home\seijirom\Dropbox\work\LRmasterSlice\コンパレータ\COMP_PLF.asc
+
+.subckt comp_plf INP INN XSTBY OUT VDDA VSSA
+M33 vbp_B vbn_B N007 vssa nch l=1.2u w=6.45u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M34 NC_01 vbp_B vbn_B VDDA pch l=1.2u w=13.8u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M37 VDDA vbp_B vbp_B VDDA pch l=1.2u w=13.8u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M38 vbn_B vbn_B N006 vssa nch l=1.2u w=6.45u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M39 N010 xstby vssa vssa nch l=2.0u w=3.3u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M40 N007 N006 N010 vssa nch l=1.2u w=18.1u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M41 N006 N006 vssa vssa nch l=1.2u w=7.2u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M42 VDDA vbp_B N001 VDDA pch l=1.2u w=13.5u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M43 N008 N009 vssa vssa nch l=1.2u w=3.7u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M44 N009 N009 vssa vssa nch l=1.2u w=3.7u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M45 N001 inn N008 N001 pch l=1.2u w=10.0u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M46 N001 inp N009 N001 pch l=1.2u w=10.0u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M47 VDDA vbp_B N003 VDDA pch l=1.2u w=20.0u pd=w+l+l ps=pd ad=w*l as=ad m=10
+M48 N003 N008 vssa vssa nch l=1.2u w=23.8u pd=w+l+l ps=pd ad=w*l as=ad m=4
+M49 out N005 vssa vssa nch l=1.2u w=12.33u pd=w+l+l ps=pd ad=w*l as=ad m=2
+M50 VDDA N005 out VDDA pch l=1.2u w=20.0u pd=w+l+l ps=pd ad=w*l as=ad m=4
+C4 N003 N002 1p
+C5 out vssa 1p
+C6 out N003 1p
+M1 N003 N004 N005 VDDA pch l=1.0u w=20.0u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M2 N005 xstby N003 vssa nch l=1.0u w=12.u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M3 N004 xstby VSSA VSSA nch l=1.0u w=12.u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M4 VDDA xstby N004 VDDA pch l=1.0u w=20.0u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M5 N005 N004 VSSA VSSA nch l=1.0u w=12.u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M6 N008 vbn_B N002 vssa nch l=1.2u w=14.4u pd=w+l+l ps=pd ad=w*l as=ad m=2
+.ends comp_plf
+

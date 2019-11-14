@@ -1,0 +1,151 @@
+************Fast Case NMOS************
+*model = bsim3
+*NewModel =   3
+*MetaSoftware Compatibility Mode
+*These are BSIM3v3 Model Parameters.
+*
+*LotName=LOT_NAME UserName=USER Date=26-10-2015
+* Lmin=0.3 Lmax=20 Wmin=0.5 Wmax=20
+.model N NMOS
++Level= 53
+*
+* GENERAL PARAMETERS
+*
++lmin=3.0e-7 lmax=2.0e-5 wmin=5.0e-7 wmax=2.0e-5
++Tnom=25.0
++version =3.2
++Tox= 7.125E-09
++Toxm= 7.50E-09
++Xj= 3.0000001E-07 
++Nch= 2.0799999E+17 
++lln= 1.9687001
++lwn= 1.0000000
++wln= 2.0000000
++wwn= 1.9737509
++lint= 2.5000000E-08
++ll= 4.1700000E-21
++lw= 0.00
++lwl= 0.00
++wint= 1.2928500E-07
++wl= -1.5993010E-21
++ww= -1.4646659E-20
++wwl= 0.00
++Mobmod=  1
++binunit= 2
++Dwg= -1.1285980E-08 
++Dwb= -7.4500000E-10 
++rsh= 0
+*
+* THRESHOLD VOLTAGE PARAMETERS
+*
++Vth0='0.3995000 +0.079'
++K1= 0.5712000 
++K2= -2.7899999E-02 
++K3= 0.5749000 
++Dvt0= 2.0936999 
++Dvt1= 0.8910000 
++Dvt2= -0.3194000 
++Dvt0w= -0.3106000 
++Dvt1w= 2.9500000E+05 
++Dvt2w= -0.6568000 
++Nlx= 3.0499999E-07 
++W0= 1.5600000E-07 
++K3b= -0.5622700 
++Ngate= 1.0000000E+30 
++Vfb= -0.9839626 
+*
+* MOBILITY PARAMETERS
+*
++Vsat= 1.3752300E+05 
++Ua= -9.8932130E-10 
++Ub= 2.8072440E-18 
++Uc= 2.9965998E-11 
++Rdsw= 1.7550000E+03 wRdsw= -4.0000000E-04
++Prwb= -1.8821141E-02 
++Prwg= -8.4254560E-02 
++Wr= 1.0000000
++U0='3.4564100E-02 *1.14'
++A0= 1.2258890 
++Keta= -5.4577900E-03 
++A1= 0.00 
++A2= 0.5685434 
++Ags= 0.2496626 
++B0= 7.3988550E-10 
++B1= -3.8670620E-07 
+*
+* SUBTHRESHOLD CURRENT PARAMETERS
+*
++Voff= -7.7137810E-02 
++NFactor= 1.3620909 
++Cit= -2.1837780E-04 
++Cdsc= 0.00 
++Cdscb= 0.00 
++Cdscd= 0.00 
++Eta0= 3.9400000E-02 
++Etab= -2.1302789E-02 
++Dsub= 0.3252015 
+*
+* ROUT PARAMETERS
+*
++Pclm= 1.7791190 
++Pdiblc1= 1.0000000E-04 
++Pdiblc2= 1.6650289E-02 
++Pdiblcb= 0.1513672 
++Drout= 1.7859780 
++Pscbe1= 2.8572259E+08 
++Pscbe2= 1.0000000E-06 
++Pvag= 1.6068590 
++Delta= 1.0000000E-02 
++Alpha0= 0.00 
++Alpha1= 0.00 
++Beta0= 30.0000000 
+*
+* TEMPERATURE EFFECTS PARAMETERS
+*
++kt1= -0.2866270 
++kt2= -3.2229730E-02 
++At= 6.0850210E+04 
++Ute= -1.0506560 
++Ua1= 2.9689335E-09 
++Ub1= -3.8310610E-18 
++Uc1= -5.2165740E-12 
++Kt1l= 3.5721640E-09 
++Prt= 59.8770900 
+*
+* CAPACITANCE PARAMETERS
+*
++Cj= 0.0007726
++Mj= 0.432
++Pb= 0.817
++Cjsw= 3.263E-10
++Mjsw= 0.279
++Pbsw= 0.767
++Cjswg= 3.263E-10
++Tpb= 0
++Tpbsw= 0
++Tcj= 0
++Tcjsw= 0
++JS=1.00E-04
++JSW=0.00
++N=1.0
++Xti=3.0
++Cgdo=1.2E-10
++Cgso=1.2E-10
++Cgbo=1.0E-13
++Capmod= 3
++NQSMOD= 0
++Elm= 5
++Xpart= 0
++cgsl= 1.0000000E-10 
++cgdl= 1.0000000E-10 
++ckappa= 0.6000000 
++cf= 0.00 
++clc= 1.0000000E-09 
++cle= 0.6000000 
++Dlc= 5E-08
++Dwc= 7.5E-08
++Vfbcv= -0.8098
++Acde= 1
++Moin= 15
++Noff= 1
++Voffcv= 0

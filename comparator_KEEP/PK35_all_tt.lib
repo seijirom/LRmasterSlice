@@ -1,0 +1,6158 @@
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :04/04/2017
+*  File name            :NPN.lib
+*  Model ver.           :Ver.0.0
+*  Simulator            :hspice
+*  Model call name      :NPN
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved. 
+*************************************************************************
+*
+* 04/04/2017 : Ver.0.0
+* First release 
+*
+*************************************************************************
+.MODEL NPN NPN
++ IS = 1E-017
++ BF = 20
++ NF = 1
++ VAF = 1000
++ IKF = 0.0005
++ ISE = 0
++ NE = 1.5
++ BR = 100
++ NR = 1
++ VAR = 1000
++ IKR = 10
++ ISC = 0
++ NC = 2
++ RB = 3
++ IRB = 10
++ RBM = 0
++ RE = 0.02
++ RC = 0.02
++ XTB = 2.1
++ EG = 1.11
++ XTI = 5
++ CJE = 0
++ VJE = 0.75
++ MJE = 0.333
++ TF = 0
++ XTF = 0
++ VTF = 1000
++ ITF = 0
++ PTF = 0
++ CJC = 0
++ VJC = 0.75
++ MJC = 0.333
++ XCJC = 1
++ TR = 1E-009
++ CJS = 0
++ VJS = 0.75
++ MJS = 0
++ FC = 0.5
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :04/04/2017
+*  File name            :PNP.lib
+*  Model ver.           :Ver.0.0
+*  Simulator            :hspice
+*  Model call name      :PNP
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved. 
+*************************************************************************
+*
+* 04/04/2017 : Ver.0.0
+* First release 
+*
+*********************************************************************
+.MODEL PNP PNP
++ IS = 3E-018
++ BF = 2.17
++ NF = 1
++ VAF = 1000
++ IKF = 0.0002
++ ISE = 0
++ NE = 1.5
++ BR = 100
++ NR = 1
++ VAR = 1000
++ IKR = 10
++ ISC = 0
++ NC = 2
++ RB = 0.05
++ IRB = 10
++ RBM = 0
++ RE = 1
++ RC = 1
++ XTB = 2
++ EG = 1.11
++ XTI = 5
++ CJE = 0
++ VJE = 0.75
++ MJE = 0.333
++ TF = 0
++ XTF = 0
++ VTF = 1000
++ ITF = 0
++ PTF = 0
++ CJC = 0
++ VJC = 0.75
++ MJC = 0.333
++ XCJC = 1
++ TR = 1E-009
++ CJS = 0
++ VJS = 0.75
++ MJS = 0
++ FC = 0.5
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :04/04/2017
+*  File name            :PNP2.lib
+*  Model ver.           :Ver.0.0
+*  Simulator            :hspice
+*  Model call name      :PNP2
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved. 
+*************************************************************************
+*
+* 04/04/2017 : Ver.0.0
+* First release 
+*
+*************************************************************************
+.MODEL PNP2 PNP
++ IS = 2E-018
++ BF = 1.62
++ NF = 1
++ VAF = 1000
++ IKF = 0.0002
++ ISE = 0
++ NE = 1.5
++ BR = 100
++ NR = 1
++ VAR = 1000
++ IKR = 10
++ ISC = 0
++ NC = 2
++ RB = 0.05
++ IRB = 10
++ RBM = 0
++ RE = 1
++ RC = 1
++ XTB = 2.13
++ EG = 1.11
++ XTI = 5
++ CJE = 0
++ VJE = 0.75
++ MJE = 0.333
++ TF = 0
++ XTF = 0
++ VTF = 1000
++ ITF = 0
++ PTF = 0
++ CJC = 0
++ VJC = 0.75
++ MJC = 0.333
++ XCJC = 1
++ TR = 1E-009
++ CJS = 0
++ VJS = 0.75
++ MJS = 0
++ FC = 0.5
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/04/2017
+*  File name            :CPIP.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :hspice
+*  Model call name      :CPIP
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved. 
+*************************************************************************
+*
+* 07/04/2017 : Ver.0.3
+*  .param modified
+*   CPIP_VC1 = -1.472e-4 -> -1.473e-4
+*   CPIP_VC2 = -1.257e-5 -> -1.258e-5
+*   TC1 = 1.053e-5 -> 1.507e-5
+*   TC2 = 2.839e-7 -> 1.648e-7
+*
+* 05/16/2017 : Ver.0.2
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Created subcircuit for capacitor so it can vary for every instance during Monte Carlo.
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula C = Cnom*(1 + VC1*abs(V) + VC2*V*V).
+*
+* 04/04/2017 : Ver.0.0
+* First release 
+*
+*************************************************************************
+
+*.LIB tt
+	.PARAM Cap_Sigma = 0
+*	.LIB CPIP.lib cap
+*.ENDL tt
+
+*.LIB ff
+*	.PARAM Cap_Sigma = -3
+*	.LIB CPIP.lib cap
+*.ENDL ff
+
+*.lib ss
+*	.PARAM Cap_Sigma = 3
+*	.LIB CPIP.lib cap
+*.ENDL ss
+
+*.lib sigma
+*	.LIB CPIP.lib cap
+*.ENDL sigma
+
+*.lib mc
+*	.PARAM Cap_Sigma = AGAUSS(0,1,1)
+*	.LIB CPIP.lib cap
+*.ENDL mc
+
+*.LIB cap     comment out by tsuchiya
+.SUBCKT CPIP Pos Neg L=10u W=10u m=1
+.PARAM CPIP_CoxMean = 1.72e-3
+.PARAM CPIP_CoxStDev = 'CPIP_CoxMean * 0.1/3'
+.PARAM CPIP_Cox = 'CPIP_CoxMean + Cap_Sigma*(CPIP_CoxStDev)'
+.PARAM CPIP_Csw = 0
+.PARAM CPIP_dL = 0
+.PARAM CPIP_dW = 0
+
+.PARAM CPIP_Leff = 'L+CPIP_dL'
+.PARAM CPIP_Weff = 'W+CPIP_dW'
+.PARAM CPIP_Area = 'CPIP_Leff*CPIP_Weff'
+.PARAM CPIP_Peri = '2.0*(CPIP_Leff+CPIP_Weff)'
+.PARAM CPIP_Cnom = 'CPIP_Cox*CPIP_Area + CPIP_Csw*CPIP_Peri'
+.PARAM CPIP_VC1 = -1.473e-4
+.PARAM CPIP_VC2 = -1.258e-5
+
+Cmain Pos Neg CPIP C='CPIP_Cnom*(1 + CPIP_VC1*V(Pos,Neg) + CPIP_VC2*V(Pos,Neg)*V(Pos,Neg))'
+*Cmain Pos Neg CPIP C='CPIP_Cnom'
+
+.MODEL CPIP C
++ TC1 = 1.507e-5
++ TC2 = 1.648e-7
+*+ VC1 = 'CPIP_VC1'
+*+ VC2 = 'CPIP_VC2'
++ TNOM = 27
+.ENDS CPIP
+*.ENDL cap  comment out by tsuchiya
+
+********** marge all MOS FET models by Tsuchiya 20190620
+* paramter in MOS_Models.lib
+        .PARAM NMOS_MC_Flag=0
+        .PARAM NMOS_Sigma = 0
+        .PARAM PMOS_MC_Flag=0
+        .PARAM PMOS_Sigma = 0
+        .PARAM NMOS_Sigma_Global = NMOS_Sigma
+        .PARAM PMOS_Sigma_Global = PMOS_Sigma
+        .PARAM NMOS_Sigma_Global2 = PMOS_Sigma
+********** End
+
+
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/31/2017
+*  File name            :MND.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :MND
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 05/31/2017 : Ver 0.3
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.2
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mnd_dvth0 = 0.02591 -> 0, mnd_du0 = -0.0003992 -> 0
+*     ss mnd_dtox = 0 -> 1.00e-9, mnd_dxl = 0 -> 4.50e-8, mnd_dxw = 0 -> -3.00e-8
+*     ss mnd_dvth0 = 0.1264 -> 0.100, mnd_du0 = 0.0005405 -> 0.00094
+*     ff mnd_dtox = 0 -> -1.00e-9, mnd_dxl = 0 -> -4.50e-8, mnd_dxw = 0 -> 3.00e-8
+*     ff mnd_dvth0 = -0.07465 -> -0.100, mnd_du0 = -0.000562 -> 0.000163
+*     sf mnd_dvth0 = 0.1264 -> 0.100, mnd_du0 = 0.0005405 -> 0.00094
+*     fs mnd_dvth0 = -0.07465 -> -0.100, mnd_du0 = -0.000562 -> 0.000163
+*
+*  Model parameters modified
+*     VTH0 = '-0.4372 + mnd_dvth0' -> '-0.4113 + mnd_dvth0'
+*     U0 = '0.05583 + mnd_du0' -> '0.05543 + mnd_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya   
+
+.SUBCKT MND D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MND l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MND_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnd_dtox = 'MOS_Sigma_Global*(MND_dtox_StDev)'
+.PARAM MND_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnd_dxl = 'MOS_Sigma_Global*(MND_dxl_StDev)'
+.PARAM MND_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnd_dxw = 'MOS_Sigma_Global*(MND_dxw_StDev)'
+.PARAM MND_dvth0_StDev = '0.100/3.0'
+*.PARAM mnd_dvth0 = 'NMOS_Sigma_Global*(MND_dvth0_StDev)'
+.PARAM MND_du0_StDev_Slow = '9.400E-04/3.0'
+.PARAM MND_du0_StDev_Fast = '-1.63E-04/3.0'
+.PARAM MND_du0_Mean_MC = '0'
+.PARAM MND_du0_Mean_Ctr_MC = '3.885E-04'
+.PARAM MND_du0_StDev_Ctr_MC = '5.515E-04/3'
+.PARAM MND_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MND_du0_StDev_sigma = '((MND_du0_Sigma<0) ? MND_du0_StDev_Fast : MND_du0_StDev_Slow)'
+*.PARAM MND_du0_Sig = '(abs(MND_du0_Sigma)*MND_du0_StDev_sigma)'
+*.PARAM MND_du0_MC = 'MND_du0_Sig'
+*.PARAM MND_du0_MC = 'MND_du0_Mean_Ctr_MC + MND_du0_Sigma*MND_du0_StDev_Ctr_MC'
+*.PARAM mnd_du0 = '((NMOS_MC_Flag>0) ? MND_du0_MC : MND_du0_Sig)'
+
+.MODEL MND NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnd_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '-0.4113 + mnd_dvth0'
++ K1 = 0.5911
++ K2 = 1E-006
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 6.001E-007
++ DVT0 = 2.682
++ DVT1 = 0.5082
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05543 + mnd_du0'
++ UA = 1.044E-009
++ UB = 2.03E-018
++ UC = -1.07E-011
++ VSAT = 7E+004
++ A0 = 0.6189
++ AGS = 0.1847
++ B0 = 0
++ B1 = 0
++ KETA = -0.02489
++ A1 = 0
++ A2 = 1
++ RDSW = 902
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnd_dxl'
++ XW = '0 + mnd_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1822
++ NFACTOR = 1.19
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.49
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 2.6E-006
++ BETA0 = 36
++ ALPHA1 = 7.1
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.437
++ KT1 = -0.4007
++ KT1L = -6E-008
++ KT2 = -0.06
++ UA1 = 4.118E-009
++ UB1 = -7.827E-018
++ UC1 = -4.014E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 1.457E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07303
++ WVTH0 = -0.0198
++ PVTH0 = 0
++ LK1 = -0.03819
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = 0.00325
++ WU0 = -0.003
++ PU0 = 0.01
++ LUA = -1.299E-009
++ WUA = 2.076E-010
++ PUA = 7E-010
++ LUB = 1.057E-018
++ WUB = -9.03E-019
++ PUB = -1.9E-018
++ LUC = -7.86E-011
++ WUC = 0
++ PUC = -7E-011
++ LA0 = -0.3
++ WA0 = -0.05
++ PA0 = 0
++ LAGS = -0.0428
++ WAGS = -0.02122
++ PAGS = 0.341
++ LKETA = 0
++ WKETA = 0.00987
++ PKETA = -0.012
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.04818
++ WKT1 = -0.025
++ PKT1 = 0
++ LKT2 = 0.00742
++ WKT2 = -0.015
++ PKT2 = 0
++ LUTE = 0.1692
++ WUTE = -0.009766
++ PUTE = 0
++ LUA1 = -2.544E-009
++ WUA1 = -1.342E-009
++ PUA1 = 0
++ LUB1 = 3.432E-018
++ WUB1 = 2E-018
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 5000
+
+.ENDS MND
+
+*.ENDL mos   comment out by tsuchiya  
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/31/2017
+*  File name            :MNDI.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :MNDI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 05/31/2017 : Ver 0.3
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.2
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 05/24/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters as MND (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya 
+
+.SUBCKT MNDI D G S B Sub L=1u W=1u M=1 AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNDI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B Sub MNDI_D
+
+.PARAM MNDI_dtox_StDev = '1.00E-09/3.0'
+.PARAM mndi_dtox = 'MOS_Sigma_Global*(MNDI_dtox_StDev)'
+.PARAM MNDI_dxl_StDev = '4.50e-8/3.0'
+.PARAM mndi_dxl = 'MOS_Sigma_Global*(MNDI_dxl_StDev)'
+.PARAM MNDI_dxw_StDev = '-3.00E-08/3.0'
+.PARAM mndi_dxw = 'MOS_Sigma_Global*(MNDI_dxw_StDev)'
+.PARAM MNDI_dvth0_StDev = '0.100/3.0'
+.PARAM mndi_dvth0 = 'NMOS_Sigma_Global*(MNDI_dvth0_StDev)'
+.PARAM MNDI_du0_StDev_Slow = '9.400E-04/3.0'
+.PARAM MNDI_du0_StDev_Fast = '-1.63E-04/3.0'
+.PARAM MNDI_du0_Mean_MC = '0'
+.PARAM MNDI_du0_Mean_Ctr_MC = '3.885E-04'
+.PARAM MNDI_du0_StDev_Ctr_MC = '5.515E-04/3'
+.PARAM MNDI_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNDI_du0_StDev_sigma = '((MNDI_du0_Sigma<0) ? MNDI_du0_StDev_Fast : MNDI_du0_StDev_Slow)'
+*.PARAM MNDI_du0_Sig = '(abs(MNDI_du0_Sigma)*MNDI_du0_StDev_sigma)'
+*.PARAM MNDI_du0_MC = 'MNDI_du0_Sig'
+*.PARAM MNDI_du0_MC = 'MNDI_du0_Mean_Ctr_MC + MNDI_du0_Sigma*MNDI_du0_StDev_Ctr_MC'
+*.PARAM mndi_du0 = '((NMOS_MC_Flag>0) ? MNDI_du0_MC : MNDI_du0_Sig)'
+
+.MODEL MNDI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNDI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mndi_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '-0.4113 + mndi_dvth0'
++ K1 = 0.5911
++ K2 = 1E-006
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 6.001E-007
++ DVT0 = 2.682
++ DVT1 = 0.5082
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05543 + mndi_du0'
++ UA = 1.044E-009
++ UB = 2.03E-018
++ UC = -1.07E-011
++ VSAT = 7E+004
++ A0 = 0.6189
++ AGS = 0.1847
++ B0 = 0
++ B1 = 0
++ KETA = -0.02489
++ A1 = 0
++ A2 = 1
++ RDSW = 902
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mndi_dxl'
++ XW = '0 + mndi_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1822
++ NFACTOR = 1.19
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.49
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 2.6E-006
++ BETA0 = 36
++ ALPHA1 = 7.1
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.437
++ KT1 = -0.4007
++ KT1L = -6E-008
++ KT2 = -0.06
++ UA1 = 4.118E-009
++ UB1 = -7.827E-018
++ UC1 = -4.014E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 1.457E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07303
++ WVTH0 = -0.0198
++ PVTH0 = 0
++ LK1 = -0.03819
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = 0.00325
++ WU0 = -0.003
++ PU0 = 0.01
++ LUA = -1.299E-009
++ WUA = 2.076E-010
++ PUA = 7E-010
++ LUB = 1.057E-018
++ WUB = -9.03E-019
++ PUB = -1.9E-018
++ LUC = -7.86E-011
++ WUC = 0
++ PUC = -7E-011
++ LA0 = -0.3
++ WA0 = -0.05
++ PA0 = 0
++ LAGS = -0.0428
++ WAGS = -0.02122
++ PAGS = 0.341
++ LKETA = 0
++ WKETA = 0.00987
++ PKETA = -0.012
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.04818
++ WKT1 = -0.025
++ PKT1 = 0
++ LKT2 = 0.00742
++ WKT2 = -0.015
++ PKT2 = 0
++ LUTE = 0.1692
++ WUTE = -0.009766
++ PUTE = 0
++ LUA1 = -2.544E-009
++ WUA1 = -1.342E-009
++ PUA1 = 0
++ LUB1 = 3.432E-018
++ WUB1 = 2E-018
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 5000
+
+.ENDS MNDI
+
+*.ENDL mos   comment out by tsuchiya   
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/12/2017
+*  File name            :MNE.lib
+*  Model ver.           :Ver.0.4
+*  Simulator            :T-Spice
+*  Model call name      :MNE
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/12/2017 : Ver 0.4
+*    Modified du_StDev_Slow/Fast according to original corner du0 parameter typo correction
+*       MNE_du0_StDev_Slow = '6.540E-04/3.0' -> '-8.010E-04/3.0' (sf mne_du0 = 6.540E-04 -> -8.010E-04)
+*       MNE_du0_StDev_Fast = '-8.010E-04/3.0' -> '6.540E-04/3.0' (fs mne_du0 = -8.010E-04 -> 6.540E-04)
+*
+*    Changed following formula intoroducing parameters NMOS_Sigma_Global2 and MNE_du0_Sigma2 applicable 
+*    to particular Vth dependency on MPM, MPL (MNE's Vth is decided by MPM and MPL's Vth)
+*       mne_dvth0 = 'NMOS_Sigma_Global*(MNE_dvth0_StDev)' -> 'NMOS_Sigma_Global2*(MNE_dvth0_StDev)'
+*       MNE_du0_Sigma = NMOS_Sigma_Global -> MNE_du0_Sigma2 = NMOS_Sigma_Global2 
+*       MNE_du0_StDev_sigma = '((MNE_du0_Sigma<0) ? MNE_du0_StDev_Fast : MNE_du0_StDev_Slow)'  
+*                          -> '((MNE_du0_Sigma2>0) ? MNE_du0_StDev_Fast : MNE_du0_StDev_Slow)'
+*  
+* 05/31/2017 : Ver 0.3
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.2
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mne_dvth0 = 0.001324 -> 0, mne_du0 = -0.001786 -> 0
+*     ss mne_dtox = 0 -> 1.00e-9, mne_dxl = 0 -> 4.50e-8, mne_dxw = 0 -> -3.00e-8
+*     ss mne_dvth0 = 0.1041 -> -0.100, mne_du0 = -0.002587 -> 0.000654
+*     ff mne_dtox = 0 -> 1.00e-9, mne_dxl = 0 -> -4.50e-8, mne_dxw = 0 -> 3.00e-8
+*     ff mne_dvth0 = -0.1021 -> 0.100, mne_du0 = -0.001132 -> -0.000801
+*     sf mne_dvth0 = 0.1041 -> -0.100, mne_du0 = -0.002587 -> 0.000654
+*     fs mne_dvth0 = -0.1021 -> 0.100, mne_du0 = -0.001132 -> -0.00080
+*
+*  Model parameters modified
+*     VTH0 = '0.9705 + mne_dvth0' -> '0.9718 + mne_dvth0'
+*     U0 = '0.03644 + mne_du0' -> '0.03465 + mne_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* Modified parameter
+*  MNE: UB = 3.643E-018 <- 3.743E-018
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya  
+
+.SUBCKT MNE D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNE l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MNE_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mne_dtox = 'MOS_Sigma_Global*(MNE_dtox_StDev)'
+.PARAM MNE_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mne_dxl = 'MOS_Sigma_Global*(MNE_dxl_StDev)'
+.PARAM MNE_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mne_dxw = 'MOS_Sigma_Global*(MNE_dxw_StDev)'
+
+.PARAM MNE_dvth0_StDev = '-0.100/3.0'
+
+*.PARAM mne_dvth0 = 'NMOS_Sigma_Global*(MNE_dvth0_StDev)'
+*.PARAM mne_dvth0 = 'NMOS_Sigma_Global2*(MNE_dvth0_StDev)'
+
+.PARAM MNE_du0_StDev_Slow = '-8.010E-04/3.0'
+.PARAM MNE_du0_StDev_Fast = '6.540E-04/3.0'
+
+.PARAM MNE_du0_Mean_MC = '0'
+.PARAM MNE_du0_Mean_Ctr_MC = '-7.350E-05'
+.PARAM MNE_du0_StDev_Ctr_MC = '7.275E-04/3'
+
+*.PARAM MNE_du0_Sigma = NMOS_Sigma_Global
+.PARAM MNE_du0_Sigma2 = NMOS_Sigma_Global2
+
+*.PARAM MNE_du0_StDev_sigma = '((MNE_du0_Sigma<0) ? MNE_du0_StDev_Fast : MNE_du0_StDev_Slow)'
+*.PARAM MNE_du0_StDev_sigma = '((MNE_du0_Sigma2>0) ? MNE_du0_StDev_Fast : MNE_du0_StDev_Slow)'
+
+*.PARAM MNE_du0_Sig = '(abs(MNE_du0_Sigma)*MNE_du0_StDev_sigma)'
+*.PARAM MNE_du0_Sig = '(abs(MNE_du0_Sigma2)*MNE_du0_StDev_sigma)'
+
+*.PARAM MNE_du0_MC = 'MNE_du0_Sig'
+*.PARAM MNE_du0_MC = 'MNE_du0_Mean_Ctr_MC + MNE_du0_Sigma*MNE_du0_StDev_Ctr_MC'
+
+*.PARAM mne_du0 = '((NMOS_MC_Flag>0) ? MNE_du0_MC : MNE_du0_Sig)'
+
+.MODEL MNE NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mne_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.9718 + mne_dvth0'
++ K1 = 1.273
++ K2 = -0.1126
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 3.986E-007
++ DVT0 = 0.1472
++ DVT1 = 0.12
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.03465 + mne_du0'
++ UA = -1.375E-009
++ UB = 3.643E-018
++ UC = 6.994E-011
++ VSAT = 7.069E+004
++ A0 = 0.9852
++ AGS = 0.1495
++ B0 = 0
++ B1 = 0
++ KETA = -0.03008
++ A1 = 0
++ A2 = 1
++ RDSW = 1355
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.4E-007
++ XL = '0 + mne_dxl'
++ XW = '0 + mne_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1214
++ NFACTOR = 0.9444
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.08075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.314
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 1E-006
++ BETA0 = 30
++ ALPHA1 = 4.2
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -0.8813
++ KT1 = -0.3771
++ KT1L = -6E-008
++ KT2 = -0.03643
++ UA1 = 4.196E-009
++ UB1 = -4.448E-018
++ UC1 = -2.403E-011
++ AT = 2.01E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.641E-014
++ WWN = 1
++ WWL = 7.499E-020
++ LL = 2.041E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0
++ PVTH0 = 0.02722
++ LK1 = -0.15
++ WK1 = 0
++ PK1 = -0.04244
++ LU0 = -0.002019
++ WU0 = -0.002289
++ PU0 = 0
++ LUA = -6.49E-010
++ WUA = 4.086E-010
++ PUA = -1.379E-010
++ LUB = -3.827E-019
++ WUB = -8.499E-019
++ PUB = -4.62E-020
++ LUC = -4.269E-011
++ WUC = -3E-011
++ PUC = -1.5E-011
++ LA0 = -0.397
++ WA0 = 0.3
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = 0.01
++ PAGS = 0
++ LKETA = -0.03048
++ WKETA = 0
++ PKETA = 0.024
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.013
++ WKT1 = -0.01728
++ PKT1 = 0
++ LKT2 = -0.01646
++ WKT2 = -0.01684
++ PKT2 = 0
++ LUTE = -0.6802
++ WUTE = 0.03501
++ PUTE = 0
++ LUA1 = -3.069E-009
++ WUA1 = -1.521E-009
++ PUA1 = 0
++ LUB1 = 2.085E-018
++ WUB1 = 2.708E-018
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 6000
++ PETA0 = 0.04
+
+.ENDS MNE
+
+*.ENDL mos   comment out by tsuchiya  
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/12/2017
+*  File name            :MNEI.lib
+*  Model ver.           :Ver.0.4
+*  Simulator            :T-Spice
+*  Model call name      :MNEI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/12/2017 : Ver 0.4
+*    Modified du_StDev_Slow/Fast according to original corner du0 parameter typo correction
+*       MNEI_du0_StDev_Slow = '6.540E-04/3.0' -> '-8.010E-04/3.0' (sf mnei_du0 = 6.540E-04 -> -8.010E-04)
+*       MNEI_du0_StDev_Fast = '-8.010E-04/3.0' -> '6.540E-04/3.0' (fs mnei_du0 = -8.010E-04 -> 6.540E-04)
+*
+*    Changed following formula intoroducing parameters NMOS_Sigma_Global2 and MNEI_du0_Sigma2 applicable 
+*    to particular Vth dependency on MPM, MPL (MNEI's Vth is decided by MPM and MPL's Vth)
+*       mnei_dvth0 = 'NMOS_Sigma_Global*(MNEI_dvth0_StDev)' -> 'NMOS_Sigma_Global2*(MNEI_dvth0_StDev)'
+*       MNEI_du0_Sigma = NMOS_Sigma_Global -> MNEI_du0_Sigma2 = NMOS_Sigma_Global2 
+*       MNEI_du0_StDev_sigma = '((MNEI_du0_Sigma<0) ? MNEI_du0_StDev_Fast : MNEI_du0_StDev_Slow)'  
+*                          -> '((MNEI_du0_Sigma2>0) ? MNEI_du0_StDev_Fast : MNEI_du0_StDev_Slow)'
+*  
+* 05/31/2017 : Ver 0.3
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.2
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters as MNE (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya 
+
+.SUBCKT MNEI D G S B Sub L=1u W=1u M=1 AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNEI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B Sub MNEI_D
+
+.PARAM MNEI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnei_dtox = 'MOS_Sigma_Global*(MNEI_dtox_StDev)'
+.PARAM MNEI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnei_dxl = 'MOS_Sigma_Global*(MNEI_dxl_StDev)'
+.PARAM MNEI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnei_dxw = 'MOS_Sigma_Global*(MNEI_dxw_StDev)'
+
+.PARAM MNEI_dvth0_StDev = '-0.100/3.0'
+
+*.PARAM mnei_dvth0 = 'NMOS_Sigma_Global*(MNEI_dvth0_StDev)'
+*.PARAM mnei_dvth0 = 'NMOS_Sigma_Global2*(MNEI_dvth0_StDev)'
+
+.PARAM MNEI_du0_StDev_Slow = '-8.010E-04/3.0'
+.PARAM MNEI_du0_StDev_Fast = '6.540E-04/3.0'
+
+.PARAM MNEI_du0_Mean_MC = '0'
+.PARAM MNEI_du0_Mean_Ctr_MC = '-7.350E-05'
+.PARAM MNEI_du0_StDev_Ctr_MC = '7.275E-04/3'
+
+*.PARAM MNEI_du0_Sigma = NMOS_Sigma_Global
+.PARAM MNEI_du0_Sigma2 = NMOS_Sigma_Global2
+
+*.PARAM MNEI_du0_StDev_sigma = '((MNEI_du0_Sigma<0) ? MNEI_du0_StDev_Fast : MNEI_du0_StDev_Slow)'
+*.PARAM MNEI_du0_StDev_sigma = '((MNEI_du0_Sigma2>0) ? MNEI_du0_StDev_Fast : MNEI_du0_StDev_Slow)'
+
+*.PARAM MNEI_du0_Sig = '(abs(MNEI_du0_Sigma)*MNEI_du0_StDev_sigma)'
+*.PARAM MNEI_du0_Sig = '(abs(MNEI_du0_Sigma2)*MNEI_du0_StDev_sigma)'
+
+*.PARAM MNEI_du0_MC = 'MNEI_du0_Sig'
+*.PARAM MNEI_du0_MC = 'MNEI_du0_Mean_Ctr_MC + MNEI_du0_Sigma*MNEI_du0_StDev_Ctr_MC'
+
+*.PARAM mnei_du0 = '((NMOS_MC_Flag>0) ? MNEI_du0_MC : MNEI_du0_Sig)'
+
+.MODEL MNEI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNEI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnei_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.9718 + mnei_dvth0'
++ K1 = 1.273
++ K2 = -0.1126
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 3.986E-007
++ DVT0 = 0.1472
++ DVT1 = 0.12
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.03465 + mnei_du0'
++ UA = -1.375E-009
++ UB = 3.643E-018
++ UC = 6.994E-011
++ VSAT = 7.069E+004
++ A0 = 0.9852
++ AGS = 0.1495
++ B0 = 0
++ B1 = 0
++ KETA = -0.03008
++ A1 = 0
++ A2 = 1
++ RDSW = 1355
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.4E-007
++ XL = '0 + mnei_dxl'
++ XW = '0 + mnei_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1214
++ NFACTOR = 0.9444
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.08075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.314
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 1E-006
++ BETA0 = 30
++ ALPHA1 = 4.2
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -0.8813
++ KT1 = -0.3771
++ KT1L = -6E-008
++ KT2 = -0.03643
++ UA1 = 4.196E-009
++ UB1 = -4.448E-018
++ UC1 = -2.403E-011
++ AT = 2.01E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.641E-014
++ WWN = 1
++ WWL = 7.499E-020
++ LL = 2.041E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0
++ PVTH0 = 0.02722
++ LK1 = -0.15
++ WK1 = 0
++ PK1 = -0.04244
++ LU0 = -0.002019
++ WU0 = -0.002289
++ PU0 = 0
++ LUA = -6.49E-010
++ WUA = 4.086E-010
++ PUA = -1.379E-010
++ LUB = -3.827E-019
++ WUB = -8.499E-019
++ PUB = -4.62E-020
++ LUC = -4.269E-011
++ WUC = -3E-011
++ PUC = -1.5E-011
++ LA0 = -0.397
++ WA0 = 0.3
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = 0.01
++ PAGS = 0
++ LKETA = -0.03048
++ WKETA = 0
++ PKETA = 0.024
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.013
++ WKT1 = -0.01728
++ PKT1 = 0
++ LKT2 = -0.01646
++ WKT2 = -0.01684
++ PKT2 = 0
++ LUTE = -0.6802
++ WUTE = 0.03501
++ PUTE = 0
++ LUA1 = -3.069E-009
++ WUA1 = -1.521E-009
++ PUA1 = 0
++ LUB1 = 2.085E-018
++ WUB1 = 2.708E-018
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 6000
++ PETA0 = 0.04
+
+.ENDS MNEI
+
+.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/12/2017
+*  File name            :MNH.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :MNH
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/12/2017 : Ver 0.3
+*    Modified du_StDev_Slow/Fast according to original corner du0 parameter typo correction
+*       MNH_du0_StDev_Slow = '1.584E-03/3.0' -> '1.190E-04/3.0' (sf mnh_du0 = 0.001584 -> 0.000119)
+*       MNH_du0_StDev_Fast = '1.190E-04/3.0' -> '1.584E-03/3.0' (fs mnh_du0 = 0.000119 -> 0.001584)
+*
+*    Changed following formula intoroducing parameters NMOS_Sigma_Global2 and MNH_du0_Sigma2 applicable 
+*    to particular Vth dependency on MPM, MPL (MNH's Vth is decided by MPM and MPL's Vth)
+*       mnh_dvth0 = 'NMOS_Sigma_Global*(MNH_dvth0_StDev)' -> 'NMOS_Sigma_Global2*(MNH_dvth0_StDev)'
+*       MNH_du0_Sigma = NMOS_Sigma_Global -> MNH_du0_Sigma2 = NMOS_Sigma_Global2 
+*       MNH_du0_StDev_sigma = '((MNH_du0_Sigma<0) ? MNH_du0_StDev_Fast : MNH_du0_StDev_Slow)'  
+*                          -> '((MNH_du0_Sigma2>0) ? MNH_du0_StDev_Fast : MNH_du0_StDev_Slow)'
+*
+*    Typo correction of revision history on 04/10/2017
+*
+* 05/31/2017 : Ver 0.2
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.1
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mnh_dvth0 = 0.002656 -> 0, mnh_du0 = -0.002068 -> 0
+*     ss mnh_dtox = 0 -> 1.00e-9, mnh_dxl = 0 -> 4.50e-8, mnh_dxw = 0 -> -3.00e-8
+*     ss mnh_dvth0 = -0.1005 -> -0.100, mnh_du0 = -0.000484 -> 0.001584
+*     ff mnh_dtox = 0 -> -1.00e-9, mnh_dxl = 0 -> -4.50e-8, mnh_dxw = 0 -> 3.00e-8
+*     ff mnh_dvth0 = 0.1054 -> -0.100, mnh_du0 = -0.001949 -> 0.000119
+*     sf mnh_dvth0 = -0.1005 -> 0.100, mnh_du0 = -0.000484 -> 0.001584     
+*     fs mnh_dvth0 = 0.1054 -> -0.100, mnh_du0 = -0.001949 -> 0.000119
+*
+*   Model parameters modified
+*     VTH0 = '0.9705 + mnh_dvth0' -> '0.9732 + mnh_dvth0'
+*     U0 = '0.03644 + mnh_du0' -> '0.03437 + mnh_du0
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* Deleted parameter
+*  MNH: LA2, PETA0
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNH D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNH l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MNH_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnh_dtox = 'MOS_Sigma_Global*(MNH_dtox_StDev)'
+.PARAM MNH_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnh_dxl = 'MOS_Sigma_Global*(MNH_dxl_StDev)'
+.PARAM MNH_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnh_dxw = 'MOS_Sigma_Global*(MNH_dxw_StDev)'
+
+.PARAM MNH_dvth0_StDev = '-0.100/3.0'
+
+*.PARAM mnh_dvth0 = 'NMOS_Sigma_Global*(MNH_dvth0_StDev)'
+*.PARAM mnh_dvth0 = 'NMOS_Sigma_Global2*(MNH_dvth0_StDev)'
+
+.PARAM MNH_du0_StDev_Slow = '1.190E-04/3.0'
+.PARAM MNH_du0_StDev_Fast = '1.584E-03/3.0'
+
+.PARAM MNH_du0_Mean_MC = '0'
+.PARAM MNH_du0_Mean_Ctr_MC = '8.515E-04'
+.PARAM MNH_du0_StDev_Ctr_MC = '7.325E-04/3'
+
+*.PARAM MNH_du0_Sigma = NMOS_Sigma_Global
+.PARAM MNH_du0_Sigma2 = NMOS_Sigma_Global2
+
+*.PARAM MNH_du0_StDev_sigma = '((MNH_du0_Sigma<0) ? MNH_du0_StDev_Fast : MNH_du0_StDev_Slow)'
+*.PARAM MNH_du0_StDev_sigma = '((MNH_du0_Sigma2>0) ? MNH_du0_StDev_Fast : MNH_du0_StDev_Slow)'
+
+*.PARAM MNH_du0_Sig = '(abs(MNH_du0_Sigma)*MNH_du0_StDev_sigma)'
+*.PARAM MNH_du0_Sig = '(abs(MNH_du0_Sigma2)*MNH_du0_StDev_sigma)'
+
+*.PARAM MNH_du0_MC = 'MNH_du0_Sig'
+*.PARAM MNH_du0_MC = 'MNH_du0_Mean_Ctr_MC + MNH_du0_Sigma*MNH_du0_StDev_Ctr_MC'
+
+*.PARAM mnh_du0 = '((NMOS_MC_Flag>0) ? MNH_du0_MC : MNH_du0_Sig)'
+
+.MODEL MNH NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnh_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.9732 + mnh_dvth0'
++ K1 = 1.273
++ K2 = -0.1126
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 3.986E-007
++ DVT0 = 0.1472
++ DVT1 = 0.12
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.03437 + mnh_du0'
++ UA = -1.375E-009
++ UB = 3.743E-018
++ UC = 6.994E-011
++ VSAT = 7.23E+004
++ A0 = 0.9852
++ AGS = 0.1495
++ B0 = 0
++ B1 = 0
++ KETA = -0.03008
++ A1 = 0
++ A2 = 1
++ RDSW = 1524
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.4E-007
++ XL = '0 + mnh_dxl'
++ XW = '0 + mnh_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1214
++ NFACTOR = 0.9444
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.06075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 1.3
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 4E-007
++ BETA0 = 30
++ ALPHA1 = 4.2
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.4377
++ KT1L = -6E-008
++ KT2 = -0.05219
++ UA1 = 3.257E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = 0
++ WWN = 1
++ WWL = 6.807E-020
++ LL = 9.055E-015
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0.002321
++ PVTH0 = 0
++ LK1 = -0.13
++ WK1 = 0.04054
++ PK1 = 0
++ LU0 = -0.002019
++ WU0 = 0
++ PU0 = 0.001905
++ LUA = -6.26E-010
++ WUA = 0
++ PUA = 1.012E-010
++ LUB = -5.136E-019
++ WUB = -1.5E-019
++ PUB = -4.306E-019
++ LUC = -6.623E-011
++ WUC = 0
++ PUC = -1E-011
++ LA0 = -0.617
++ WA0 = 0.35
++ PA0 = -0.05
++ LAGS = -0.0108
++ WAGS = 0.014
++ PAGS = 0
++ LKETA = -0.02094
++ WKETA = -0.01
++ PKETA = 0.01
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.06243
++ WKT1 = -0.016
++ PKT1 = 0.008897
++ LKT2 = -0.0004428
++ WKT2 = 0
++ PKT2 = 0.0007775
++ LUTE = -0.0984
++ WUTE = 0.2288
++ PUTE = -0.0336
++ LUA1 = -7.866E-010
++ WUA1 = -3.18E-010
++ PUA1 = -4.325E-010
++ LUB1 = 1.03E-018
++ WUB1 = 1.466E-018
++ PUB1 = 3.348E-019
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 1E+004
+
+.ENDS MNH
+
+.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/12/2017
+*  File name            :MNHI.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :MNHI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/12/2017 : Ver 0.3
+*    Modified du_StDev_Slow/Fast according to original corner du0 parameter typo correction
+*       MNHI_du0_StDev_Slow = '1.584E-03/3.0' -> '1.190E-04/3.0' (sf mnhi_du0 = 0.001584 -> 0.000119)
+*       MNHI_du0_StDev_Fast = '1.190E-04/3.0' -> '1.584E-03/3.0' (fs mnhi_du0 = 0.000119 -> 0.001584)
+*
+*    Changed following formula intoroducing parameters NMOS_Sigma_Global2 and MNHI_du0_Sigma2 applicable 
+*    to particular Vth dependency on MPM, MPL (MNHI's Vth is decided by MPM and MPL's Vth)
+*       mnhi_dvth0 = 'NMOS_Sigma_Global*(MNHI_dvth0_StDev)' -> 'NMOS_Sigma_Global2*(MNHI_dvth0_StDev)'
+*       MNHI_du0_Sigma = NMOS_Sigma_Global -> MNHI_du0_Sigma2 = NMOS_Sigma_Global2 
+*       MNHI_du0_StDev_sigma = '((MNHI_du0_Sigma<0) ? MNHI_du0_StDev_Fast : MNHI_du0_StDev_Slow)'  
+*                          -> '((MNHI_du0_Sigma2>0) ? MNHI_du0_StDev_Fast : MNHI_du0_StDev_Slow)'
+*
+* 05/31/2017 : Ver 0.2
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/24/2017 : Ver 0.1
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters as MNH (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNHI D G S B Sub L=1u W=1u M=1 AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNHI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B Sub MNHI_D
+
+.PARAM MNHI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnhi_dtox = 'MOS_Sigma_Global*(MNHI_dtox_StDev)'
+.PARAM MNHI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnhi_dxl = 'MOS_Sigma_Global*(MNHI_dxl_StDev)'
+.PARAM MNHI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnhi_dxw = 'MOS_Sigma_Global*(MNHI_dxw_StDev)'
+
+.PARAM MNHI_dvth0_StDev = '-0.100/3.0'
+
+*.PARAM mnhi_dvth0 = 'NMOS_Sigma_Global*(MNHI_dvth0_StDev)'
+*.PARAM mnhi_dvth0 = 'NMOS_Sigma_Global2*(MNHI_dvth0_StDev)'
+
+.PARAM MNHI_du0_StDev_Slow = '1.190E-04/3.0'
+.PARAM MNHI_du0_StDev_Fast = '1.584E-03/3.0'
+
+.PARAM MNHI_du0_Mean_MC = '0'
+.PARAM MNHI_du0_Mean_Ctr_MC = '8.515E-04'
+.PARAM MNHI_du0_StDev_Ctr_MC = '7.325E-04/3'
+
+*.PARAM MNHI_du0_Sigma = NMOS_Sigma_Global
+.PARAM MNHI_du0_Sigma2 = NMOS_Sigma_Global2
+
+*.PARAM MNHI_du0_StDev_sigma = '((MNHI_du0_Sigma<0) ? MNHI_du0_StDev_Fast : MNHI_du0_StDev_Slow)'
+*.PARAM MNHI_du0_StDev_sigma = '((MNHI_du0_Sigma2>0) ? MNHI_du0_StDev_Fast : MNHI_du0_StDev_Slow)'
+
+*.PARAM MNHI_du0_Sig = '(abs(MNHI_du0_Sigma)*MNHI_du0_StDev_sigma)'
+*.PARAM MNHI_du0_Sig = '(abs(MNHI_du0_Sigma2)*MNHI_du0_StDev_sigma)'
+
+*.PARAM MNHI_du0_MC = 'MNHI_du0_Sig'
+*.PARAM MNHI_du0_MC = 'MNHI_du0_Mean_Ctr_MC + MNHI_du0_Sigma*MNHI_du0_StDev_Ctr_MC'
+
+*.PARAM mnhi_du0 = '((NMOS_MC_Flag>0) ? MNHI_du0_MC : MNHI_du0_Sig)'
+
+.MODEL MNHI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNHI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnhi_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.9732 + mnhi_dvth0'
++ K1 = 1.273
++ K2 = -0.1126
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 3.986E-007
++ DVT0 = 0.1472
++ DVT1 = 0.12
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.03437 + mnhi_du0'
++ UA = -1.375E-009
++ UB = 3.743E-018
++ UC = 6.994E-011
++ VSAT = 7.23E+004
++ A0 = 0.9852
++ AGS = 0.1495
++ B0 = 0
++ B1 = 0
++ KETA = -0.03008
++ A1 = 0
++ A2 = 1
++ RDSW = 1524
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.4E-007
++ XL = '0 + mnhi_dxl'
++ XW = '0 + mnhi_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.1214
++ NFACTOR = 0.9444
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.06075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 1.3
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 4E-007
++ BETA0 = 30
++ ALPHA1 = 4.2
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.4377
++ KT1L = -6E-008
++ KT2 = -0.05219
++ UA1 = 3.257E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = 0
++ WWN = 1
++ WWL = 6.807E-020
++ LL = 9.055E-015
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0.002321
++ PVTH0 = 0
++ LK1 = -0.13
++ WK1 = 0.04054
++ PK1 = 0
++ LU0 = -0.002019
++ WU0 = 0
++ PU0 = 0.001905
++ LUA = -6.26E-010
++ WUA = 0
++ PUA = 1.012E-010
++ LUB = -5.136E-019
++ WUB = -1.5E-019
++ PUB = -4.306E-019
++ LUC = -6.623E-011
++ WUC = 0
++ PUC = -1E-011
++ LA0 = -0.617
++ WA0 = 0.35
++ PA0 = -0.05
++ LAGS = -0.0108
++ WAGS = 0.014
++ PAGS = 0
++ LKETA = -0.02094
++ WKETA = -0.01
++ PKETA = 0.01
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.06243
++ WKT1 = -0.016
++ PKT1 = 0.008897
++ LKT2 = -0.0004428
++ WKT2 = 0
++ PKT2 = 0.0007775
++ LUTE = -0.0984
++ WUTE = 0.2288
++ PUTE = -0.0336
++ LUA1 = -7.866E-010
++ WUA1 = -3.18E-010
++ PUA1 = -4.325E-010
++ LUB1 = 1.03E-018
++ WUB1 = 1.466E-018
++ PUB1 = 3.348E-019
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 1E+004
+
+.ENDS MNHI
+
+*.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :06/23/2017
+*  File name            :MNL.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :MNL
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 06/23/2107 : Ver 0.3
+*  Fixed incorrect values for fast/slow du0_StDev
+*
+* 06/01/2017 : Ver 0.2
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mnl_dvth0 = -0.00724 -> 0, mnl_du0 = -0.0018 -> 0
+*     ss mnl_dtox = 0 -> 1.00e-9, mnl_dxl = 0 -> 4.50e-8, mnl_dxw = 0 -> -3.00e-8
+*     ss mnl_dvth0 = 0.09346 -> 0.100, mnl_du0 = -0.002015 -> 0.000215
+*     ff mnl_dtox = 0 -> -1.00e-9, mnl_dxl = 0 -> -4.50e-8, mnl_dxw = 0 -> 3.00e-8
+*     ff mnl_dvth0 = -0.108 -> -0.100, mnl_du0 = -0.001749 -> 0.000051
+*     sf mnl_dvth0 = 0.09346 -> 0.100, mnl_du0 = -0.002015 -> 0.000215
+*     fs mnl_dvth0 = -0.108 -> -0.100, mnl_du0 = -0.001749 -> 0.000051
+*
+*  Model parameters modified
+*     VTH0 = '0.3975 + mnl_dvth0' -> '0.3903 + mnl_dvth0'
+*     U0 = '0.05369 + mnl_du0' -> '0.05189 + mnl_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNL D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNL l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MNL_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnl_dtox = 'MOS_Sigma_Global*(MNL_dtox_StDev)'
+.PARAM MNL_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnl_dxl = 'MOS_Sigma_Global*(MNL_dxl_StDev)'
+.PARAM MNL_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnl_dxw = 'MOS_Sigma_Global*(MNL_dxw_StDev)'
+.PARAM MNL_dvth0_StDev = '0.100/3.0'
+*.PARAM mnl_dvth0 = 'NMOS_Sigma_Global*(MNL_dvth0_StDev)'
+.PARAM MNL_du0_StDev_Slow = '-2.150E-04/3.0'
+.PARAM MNL_du0_StDev_Fast = '5.100E-05/3.0'
+.PARAM MNL_du0_Mean_MC = '0'
+.PARAM MNL_du0_Mean_Ctr_MC = '-8.200E-05'
+.PARAM MNL_du0_StDev_Ctr_MC = '-1.330E-04/3'
+.PARAM MNL_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNL_du0_StDev_sigma = '((MNL_du0_Sigma<0) ? MNL_du0_StDev_Fast : MNL_du0_StDev_Slow)'
+*.PARAM MNL_du0_Sig = '(abs(MNL_du0_Sigma)*MNL_du0_StDev_sigma)'
+*.PARAM MNL_du0_MC = 'MNL_du0_Sig'
+*.PARAM MNL_du0_MC = 'MNL_du0_Mean_Ctr_MC + MNL_du0_Sigma*MNL_du0_StDev_Ctr_MC'
+*.PARAM mnl_du0 = '((NMOS_MC_Flag>0) ? MNL_du0_MC : MNL_du0_Sig)'
+
+.MODEL MNL NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnl_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.3903 + mnl_dvth0'
++ K1 = 0.5383
++ K2 = 0.02992
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.597E-007
++ DVT0 = 10
++ DVT1 = 1.049
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05189 + mnl_du0'
++ UA = 4.971E-011
++ UB = 3.336E-018
++ UC = 6.065E-011
++ VSAT = 7.434E+004
++ A0 = 1.509
++ AGS = 0.1713
++ B0 = 0
++ B1 = 0
++ KETA = -0.01391
++ A1 = 0
++ A2 = 1
++ RDSW = 1500
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnl_dxl'
++ XW = '0 + mnl_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.5096
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.13
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.48
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 9E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.3048
++ KT1L = -6E-008
++ KT2 = -0.03092
++ UA1 = 3.457E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.362E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.06885
++ WVTH0 = -0.0198
++ PVTH0 = 0
++ LK1 = -0.0716
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = -0.001214
++ WU0 = 0
++ PU0 = 0
++ LUA = -9.268E-010
++ WUA = 2.076E-010
++ PUA = -2E-010
++ LUB = -1E-018
++ WUB = -2.03E-019
++ PUB = 0
++ LUC = -1.119E-010
++ WUC = 0
++ PUC = 0
++ LA0 = -0.397
++ WA0 = 0.8992
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.0171
++ PAGS = 0.39
++ LKETA = 0.02
++ WKETA = 0.0039
++ PKETA = -0.042
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.02557
++ WKT1 = -0.02285
++ PKT1 = 0
++ LKT2 = -0.003253
++ WKT2 = -0.004963
++ PKT2 = 0
++ LUTE = -0.07347
++ WUTE = 0.101
++ PUTE = 0
++ LUA1 = -7.264E-010
++ WUA1 = 1.746E-010
++ PUA1 = 0
++ LUB1 = 5.02E-019
++ WUB1 = -4.696E-019
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = -1000
+
+.ENDS MNL
+
+*.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :06/23/2017
+*  File name            :MNLI.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :hspice
+*  Model call name      :MNLI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 06/23/2107 : Ver 0.2
+*  Fixed incorrect values for fast/slow du0_StDev
+*
+* 06/01/2017 : Ver 0.1
+*  Changed MOS to subcircuit and updated MOS subcircuit/model to handle corners,
+*		sigma, and Monte Carlo so it can handle the fixed value for corner for Delta uo
+*     and user specified sigma values and vary for Monte Carlo.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters as MNL (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNLI D G S B SUB L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNLI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B SUB MNLI_D
+
+.PARAM MNLI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnli_dtox = 'MOS_Sigma_Global*(MNLI_dtox_StDev)'
+.PARAM MNLI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnli_dxl = 'MOS_Sigma_Global*(MNLI_dxl_StDev)'
+.PARAM MNLI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnli_dxw = 'MOS_Sigma_Global*(MNLI_dxw_StDev)'
+.PARAM MNLI_dvth0_StDev = '0.100/3.0'
+*.PARAM mnli_dvth0 = 'NMOS_Sigma_Global*(MNLI_dvth0_StDev)'
+.PARAM MNLI_du0_StDev_Slow = '-2.150E-04/3.0'
+.PARAM MNLI_du0_StDev_Fast = '5.100E-05/3.0'
+.PARAM MNLI_du0_Mean_MC = '0'
+.PARAM MNLI_du0_Mean_Ctr_MC = '-8.200E-05'
+.PARAM MNLI_du0_StDev_Ctr_MC = '-1.330E-04/3'
+.PARAM MNLI_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNLI_du0_StDev_sigma = '((MNLI_du0_Sigma<0) ? MNLI_du0_StDev_Fast : MNLI_du0_StDev_Slow)'
+*.PARAM MNLI_du0_Sig = '(abs(MNLI_du0_Sigma)*MNLI_du0_StDev_sigma)'
+*.PARAM MNLI_du0_MC = 'MNLI_du0_Sig'
+*.PARAM MNLI_du0_MC = 'MNLI_du0_Mean_Ctr_MC + MNLI_du0_Sigma*MNLI_du0_StDev_Ctr_MC'
+*.PARAM mnli_du0 = '((NMOS_MC_Flag>0) ? MNLI_du0_MC : MNLI_du0_Sig)'
+
+.MODEL MNLI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNLI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnli_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.3903 + mnli_dvth0'
++ K1 = 0.5383
++ K2 = 0.02992
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.597E-007
++ DVT0 = 10
++ DVT1 = 1.049
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05189 + mnli_du0'
++ UA = 4.971E-011
++ UB = 3.336E-018
++ UC = 6.065E-011
++ VSAT = 7.434E+004
++ A0 = 1.509
++ AGS = 0.1713
++ B0 = 0
++ B1 = 0
++ KETA = -0.01391
++ A1 = 0
++ A2 = 1
++ RDSW = 1500
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnli_dxl'
++ XW = '0 + mnli_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.5096
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.13
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.48
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 9E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.3048
++ KT1L = -6E-008
++ KT2 = -0.03092
++ UA1 = 3.457E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 2.41E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.362E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.06885
++ WVTH0 = -0.0198
++ PVTH0 = 0
++ LK1 = -0.0716
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = -0.001214
++ WU0 = 0
++ PU0 = 0
++ LUA = -9.268E-010
++ WUA = 2.076E-010
++ PUA = -2E-010
++ LUB = -1E-018
++ WUB = -2.03E-019
++ PUB = 0
++ LUC = -1.119E-010
++ WUC = 0
++ PUC = 0
++ LA0 = -0.397
++ WA0 = 0.8992
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.0171
++ PAGS = 0.39
++ LKETA = 0.02
++ WKETA = 0.0039
++ PKETA = -0.042
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.02557
++ WKT1 = -0.02285
++ PKT1 = 0
++ LKT2 = -0.003253
++ WKT2 = -0.004963
++ PKT2 = 0
++ LUTE = -0.07347
++ WUTE = 0.101
++ PUTE = 0
++ LUA1 = -7.264E-010
++ WUA1 = 1.746E-010
++ PUA1 = 0
++ LUB1 = 5.02E-019
++ WUB1 = -4.696E-019
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = -1000
+
+.ENDS MNLi
+
+*.ENDL mos   comment out by tsuchiy
+*a*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :06/23/2017
+*  File name            :MNM.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :hspice
+*  Model call name      :MNM
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 06/23/2107 : Ver 0.2
+*  Fixed incorrect values for fast/slow du0_StDev
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mnm_dvth0 = -0.01457 -> 0, mnm_du0 = -0.003467 -> 0
+*     ss mnm_dtox = 0 -> 1.00e-9, mnm_dxl = 0 -> 4.50e-8, mnm_dxw = 0 -> -3.00e-8
+*     ss mnm_dvth0 = 0.08679 -> 0.100, mnm_du0 = -0.003421 -> 0.000046
+*     ff mnm_dtox = 0 -> -1.00e-9, mnm_dxl = 0 -> -4.50e-8, mnm_dxw = 0 -> 3.00e-8
+*     ff mnm_dvth0 = -0.1162 -> -0.100, mnm_du0 = -0.003364 -> 0.000103
+*     sf mnm_dvth0 = 0.08679 -> 0.100, mnm_du0 = -0.003421 -> 0.000046
+*     fs mnm_dvth0 = -0.1162 -> -0.100, mnm_du0 = -0.003364 -> 0.000103
+*
+*  Model parameters modified
+*     VTH0 = '0.525 + mnm_dvth0' -> '0.5104 + mnm_dvth0'
+*     U0 = '0.04625 + mnm_du0' -> '0.04278 + mnm_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/17/2017 : Ver.3.00
+* Added parameter for corner model
+*  MNM: mnm_dlu0
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* Modified parameter
+*       UB = 3.725E-018 <- 3.825E-018
+*       VSAT = 7.546E+004 <- 7.746E+004
+*       AGS = 0.185 <- 0.205
+*       A2 = 1 <- 0.2
+*       WAGS = -0.01902 <- -0.02902
+*       WKETA = 0.01981 <- 0.01081
+*
+* Deleted parameter
+*  MNM: LA2, LPDIBLC2
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNM D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m MULT=1
+M1 D G S B MNM l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MNM_dtox_StDev = '1.00E-09/3.0'
+.PARAM mm_dtox_fet = 'MNM_dtox_StDev/4'
+.PARAM dtox_mismatch='(mm_dtox_fet/sqrt(mult*l*w*1E12)*MOS_Sigma)*mismatch'
+.PARAM mnm_dtox = 'MOS_Sigma_Global*(MNM_dtox_StDev) + dtox_mismatch'
+.PARAM MNM_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnm_dxl = 'MOS_Sigma_Global*(MNM_dxl_StDev)'
+.PARAM MNM_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnm_dxw = 'MOS_Sigma_Global*(MNM_dxw_StDev)'
+.PARAM MNM_dvth0_StDev = '0.100/3.0'
+*.PARAM mnm_dvth0 = 'NMOS_Sigma_Global*(MNM_dvth0_StDev)'
+.PARAM MNM_dlu0_StDev = '-0.002/3.0'
+*.PARAM mnm_dlu0 = 'NMOS_Sigma_Global*(MNM_dlu0_StDev)'
+.PARAM MNM_du0_StDev_Slow = '4.600E-05/3.0'
+.PARAM MNM_du0_StDev_Fast = '1.030E-04/3.0'
+.PARAM MNM_du0_Mean_MC = '0'
+.PARAM MNM_du0_Mean_Ctr_MC = '7.450E-05'
+.PARAM MNM_du0_StDev_Ctr_MC = '-2.850E-05/3'
+.PARAM MNM_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNM_du0_StDev_sigma = '((MNM_du0_Sigma<0) ? MNM_du0_StDev_Fast : MNM_du0_StDev_Slow)'
+*.PARAM MNM_du0_Sig = '(abs(MNM_du0_Sigma)*MNM_du0_StDev_sigma)'
+*.PARAM MNM_du0_MC = 'MNM_du0_Sig'
+*.PARAM MNM_du0_MC = 'MNM_du0_Mean_Ctr_MC + MNM_du0_Sigma*MNM_du0_StDev_Ctr_MC'
+*.PARAM mnm_du0 = '((NMOS_MC_Flag>0) ? MNM_du0_MC : MNM_du0_Sig)'
+
+.MODEL MNM NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnm_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.5104 + mnm_dvth0'
++ K1 = 0.685
++ K2 = 1E-006
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.362E-007
++ DVT0 = 0.5799
++ DVT1 = 0.2611
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.04278 + mnm_du0'
++ UA = -6.753E-010
++ UB = 3.725E-018
++ UC = 6.695E-011
++ VSAT = 7.546E+004
++ A0 = 1.327
++ AGS = 0.185
++ B0 = 0
++ B1 = 0
++ KETA = -0.03131
++ A1 = 0
++ A2 = 1
++ RDSW = 1800
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnm_dxl'
++ XW = '0 + mnm_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.5936
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.08075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.314
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 5E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.274
++ KT1 = -0.3244
++ KT1L = -6E-008
++ KT2 = -0.02863
++ UA1 = 4.345E-009
++ UB1 = -6.269E-018
++ UC1 = -4.864E-011
++ AT = 3.754E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -9.042E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.782E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0
++ PVTH0 = 0
++ LK1 = -0.06819
++ WK1 = 0
++ PK1 = 0
++ LU0 = '-7.133E-005 + mnm_dlu0'
++ WU0 = 0
++ PU0 = 0
++ LUA = -6.305E-010
++ WUA = 1.097E-009
++ PUA = -3E-010
++ LUB = -1.566E-018
++ WUB = -1.484E-018
++ PUB = 0
++ LUC = -1.187E-010
++ WUC = 0
++ PUC = 0
++ LA0 = -0.317
++ WA0 = 0.32
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.01902
++ PAGS = 0
++ LKETA = 0.02
++ WKETA = 0.01981
++ PKETA = 0
++ LALPHA0 = 3.1E-005
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 6
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.03747
++ WKT1 = -0.01586
++ PKT1 = 0
++ LKT2 = -0.0008422
++ WKT2 = -0.01403
++ PKT2 = 0
++ LUTE = -0.4869
++ WUTE = 0
++ PUTE = 0.1726
++ LUA1 = -3.186E-009
++ WUA1 = -2E-010
++ PUA1 = 1.744E-009
++ LUB1 = 4.749E-018
++ WUB1 = -4E-019
++ PUB1 = -2.044E-018
++ LUC1 = 9E-011
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
+
+.ENDS MNM
+
+*.ENDL mos   comment out by tsuchiya
+**************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :06/23/2017
+*  File name            :MNMI.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :hspice
+*  Model call name      :MNMI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 06/23/2107 : Ver 0.2
+*  Fixed incorrect values for fast/slow du0_StDev
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*  same parameters as MNM (without Iso option): Ver.0.0
+*   .param modified
+*     tt mnmi_dvth0 = -0.01457 -> 0, mnmi_du0 = -0.003467 -> 0
+*     ss mnmi_dtox = 0 -> 1.00e-9, mnmi_dxl = 0 -> 4.50e-8, mnmi_dxw = 0 -> -3.00e-8
+*     ss mnmi_dvth0 = 0.08679 -> 0.100, mnmi_du0 = -0.003421 -> 0.000046
+*     ff mnmi_dtox = 0 -> -1.00e-9, mnmi_dxl = 0 -> -4.50e-8, mnmi_dxw = 0 -> 3.00e-8
+*     ff mnmi_dvth0 = -0.1162 -> -0.100, mnmi_du0 = -0.003364 -> 0.000103
+*     sf mnmi_dvth0 = 0.08679 -> 0.100, mnmi_du0 = -0.003421 -> 0.000046
+*     fs mnmi_dvth0 = -0.1162 -> -0.100, mnmi_du0 = -0.003364 -> 0.000103
+*
+*  Model parameters modified
+*     VTH0 = '0.525 + mnmi_dvth0' -> '0.5104 + mnmi_dvth0'
+*     U0 = '0.04625 + mnmi_du0' -> '0.04278 + mnmi_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/17/2017 : Ver.3.00
+* Added parameter for corner model
+*  MNMI: mnmi_dlu0
+*
+* 03/17/2017 : Ver.2.00
+* Added corner model
+*
+* Modified parameter
+*        UB = 3.725E-018 <- 3.825E-018
+*        VSAT = 7.546E+004 <- 7.746E+004
+*        AGS = 0.185 <- 0.205
+*        A2 = 1 <- 0.2
+*        WAGS = -0.01902 <- -0.02902
+*        WKETA = 0.01981 <- 0.01081
+*
+* Deleted parameter
+*  MNMI: LA2, LPDIBLC2
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNMI D G S B SUB L=1u W=1u M=1 AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNMI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B SUB MNMI_D
+
+.PARAM MNMI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnmi_dtox = 'MOS_Sigma_Global*(MNMI_dtox_StDev)'
+.PARAM MNMI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnmi_dxl = 'MOS_Sigma_Global*(MNMI_dxl_StDev)'
+.PARAM MNMI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnmi_dxw = 'MOS_Sigma_Global*(MNMI_dxw_StDev)'
+.PARAM MNMI_dvth0_StDev = '0.100/3.0'
+*.PARAM mnmi_dvth0 = 'NMOS_Sigma_Global*(MNMI_dvth0_StDev)'
+.PARAM MNMI_dlu0_StDev = '-0.002/3.0'
+*.PARAM mnmi_dlu0 = 'NMOS_Sigma_Global*(MNMI_dlu0_StDev)'
+.PARAM MNMI_du0_StDev_Slow = '4.600E-05/3.0'
+.PARAM MNMI_du0_StDev_Fast = '1.030E-04/3.0'
+.PARAM MNMI_du0_Mean_MC = '0'
+.PARAM MNMI_du0_Mean_Ctr_MC = '7.450E-05'
+.PARAM MNMI_du0_StDev_Ctr_MC = '-2.850E-05/3'
+.PARAM MNMI_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNMI_du0_StDev_sigma = '((MNMI_du0_Sigma<0) ? MNMI_du0_StDev_Fast : MNMI_du0_StDev_Slow)'
+*.PARAM MNMI_du0_Sig = '(abs(MNMI_du0_Sigma)*MNMI_du0_StDev_sigma)'
+*.PARAM MNMI_du0_MC = 'MNMI_du0_Sig'
+*.PARAM MNMI_du0_MC = 'MNMI_du0_Mean_Ctr_MC + MNMI_du0_Sigma*MNMI_du0_StDev_Ctr_MC'
+*.PARAM mnmi_du0 = '((NMOS_MC_Flag>0) ? MNMI_du0_MC : MNMI_du0_Sig)'
+
+.MODEL MNMI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNMI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnmi_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.5104 + mnmi_dvth0'
++ K1 = 0.685
++ K2 = 1E-006
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.362E-007
++ DVT0 = 0.5799
++ DVT1 = 0.2611
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.04278 + mnmi_du0'
++ UA = -6.753E-010
++ UB = 3.725E-018
++ UC = 6.695E-011
++ VSAT = 7.546E+004
++ A0 = 1.327
++ AGS = 0.185
++ B0 = 0
++ B1 = 0
++ KETA = -0.03131
++ A1 = 0
++ A2 = 1
++ RDSW = 1800
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnmi_dxl'
++ XW = '0 + mnmi_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.5936
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.08075
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 2.314
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001861
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 5E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.274
++ KT1 = -0.3244
++ KT1L = -6E-008
++ KT2 = -0.02863
++ UA1 = 4.345E-009
++ UB1 = -6.269E-018
++ UC1 = -4.864E-011
++ AT = 3.754E+004
++ PRT = 1302
++ WL = -6.2E-014
++ WLN = 1
++ WW = -9.042E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.782E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = 0
++ PVTH0 = 0
++ LK1 = -0.06819
++ WK1 = 0
++ PK1 = 0
++ LU0 = '-7.133E-005 + mnmi_dlu0'
++ WU0 = 0
++ PU0 = 0
++ LUA = -6.305E-010
++ WUA = 1.097E-009
++ PUA = -3E-010
++ LUB = -1.566E-018
++ WUB = -1.484E-018
++ PUB = 0
++ LUC = -1.187E-010
++ WUC = 0
++ PUC = 0
++ LA0 = -0.317
++ WA0 = 0.32
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.01902
++ PAGS = 0
++ LKETA = 0.02
++ WKETA = 0.01981
++ PKETA = 0
++ LALPHA0 = 3.1E-005
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 6
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.03747
++ WKT1 = -0.01586
++ PKT1 = 0
++ LKT2 = -0.0008422
++ WKT2 = -0.01403
++ PKT2 = 0
++ LUTE = -0.4869
++ WUTE = 0
++ PUTE = 0.1726
++ LUA1 = -3.186E-009
++ WUA1 = -2E-010
++ PUA1 = 1.744E-009
++ LUB1 = 4.749E-018
++ WUB1 = -4E-019
++ PUB1 = -2.044E-018
++ LUC1 = 9E-011
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
+
+.ENDS MNMi
+
+*.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/31/2017
+*  File name            :MNN.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :hspice
+*  Model call name      :MNN
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 05/31/2017 : Ver 0.2
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/19/2017 : Ver.0.1
+* Correct typo  mnn_du0 = -0.000043 -> -0.000047 for fs
+
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mnn_dvth0 = -0.01031 -> 0, mnn_du0 = -0.005042 -> 0
+*     ss mnn_dtox = 0 -> 1.00e-9, mnn_dxl = 0 -> 4.50e-8, mnn_dxw = 0 -> -3.00e-8
+*     ss mnn_dvth0 = 0.09023 -> 0.100, mnn_du0 = -0.005085 -> -0.000043
+*     ff mnn_dtox = 0 -> -1.00e-9, mnn_dxl = 0 -> -4.50e-8, mnn_dxw = 0 -> 3.00e-8
+*     ff mnn_dvth0 = -0.111 -> -0.100, mnn_du0 = -0.005089 -> -0.000047
+*     sf mnn_dvth0 = 0.09023 -> 0.100, mnn_du0 = -0.005085 -> -0.000043
+*     fs mnn_dvth0 = -0.111 -> -0.100, mnn_du0 = -0.005089 -> -0.000047
+*
+*  Model parameters modified
+*     VTH0 = '-0.4372 + mnn_dvth0' -> '-0.4113 + mnn_dvth0'
+*     U0 = '0.05583 + mnn_du0' -> '0.05543 + mnn_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* Modified parameter
+*       UB = 3E-018 <- 3.2E-018
+*       VSAT = 6.626E+004 <- 6.8E+004
+*       WAGS = -0.03688 <- -0.02688
+*
+* Deleted parameter
+*       LA2
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNN D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNN l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MNN_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnn_dtox = 'MOS_Sigma_Global*(MNN_dtox_StDev)'
+.PARAM MNN_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnn_dxl = 'MOS_Sigma_Global*(MNN_dxl_StDev)'
+.PARAM MNN_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnn_dxw = 'MOS_Sigma_Global*(MNN_dxw_StDev)'
+.PARAM MNN_dvth0_StDev = '0.100/3.0'
+*.PARAM mnn_dvth0 = 'NMOS_Sigma_Global*(MNN_dvth0_StDev)'
+.PARAM MNN_du0_StDev_Slow = '-4.300E-05/3.0'
+.PARAM MNN_du0_StDev_Fast = '-4.700E-05/3.0'
+.PARAM MNN_du0_Mean_MC = '0'
+.PARAM MNN_du0_Mean_Ctr_MC = '-4.500E-05'
+.PARAM MNN_du0_StDev_Ctr_MC = '2.000E-06/3'
+.PARAM MNN_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNN_du0_StDev_sigma = '((MNN_du0_Sigma<0) ? MNN_du0_StDev_Fast : MNN_du0_StDev_Slow)'
+*.PARAM MNN_du0_Sig = '(abs(MNN_du0_Sigma)*MNN_du0_StDev_sigma)'
+*.PARAM MNN_du0_MC = 'MNN_du0_Sig'
+*.PARAM MNN_du0_MC = 'MNN_du0_Mean_Ctr_MC + MNN_du0_Sigma*MNN_du0_StDev_Ctr_MC'
+*.PARAM mnn_du0 = '((NMOS_MC_Flag>0) ? MNN_du0_MC : MNN_du0_Sig)'
+
+.MODEL MNN NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnn_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.1756 + mnn_dvth0'
++ K1 = 0.4094
++ K2 = 0.06078
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 8.009E-007
++ DVT0 = 2
++ DVT1 = 0.7678
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05102 + mnn_du0'
++ UA = 3.432E-010
++ UB = 3E-018
++ UC = 4.872E-011
++ VSAT = 6.626E+004
++ A0 = 1.585
++ AGS = 0.2022
++ B0 = 0
++ B1 = 0
++ KETA = -0.03
++ A1 = 0
++ A2 = 1
++ RDSW = 1300
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnn_dxl'
++ XW = '0 + mnn_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.3864
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.13
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 5
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 2E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.2723
++ KT1L = -6E-008
++ KT2 = -0.02747
++ UA1 = 3.257E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 3.137E+004
++ PRT = 882.5
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.362E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = -0.0138
++ PVTH0 = 0
++ LK1 = -0.06819
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = -0.001214
++ WU0 = 0.001445
++ PU0 = 0
++ LUA = -9.268E-010
++ WUA = 6.999E-010
++ PUA = -3.5E-010
++ LUB = -1E-018
++ WUB = -1.385E-018
++ PUB = 3E-019
++ LUC = -1.119E-010
++ WUC = -6E-011
++ PUC = 0
++ LA0 = -0.397
++ WA0 = 0.03451
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.03688
++ PAGS = 0
++ LKETA = 0.02
++ WKETA = 0.01373
++ PKETA = -0.025
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.02208
++ WKT1 = 0
++ PKT1 = 0
++ LKT2 = 0.002256
++ WKT2 = 0
++ PKT2 = 0
++ LUTE = -0.2447
++ WUTE = 0.1
++ PUTE = 0
++ LUA1 = -1.652E-009
++ WUA1 = 0
++ PUA1 = 0
++ LUB1 = 2.816E-018
++ WUB1 = -3E-019
++ PUB1 = 0
++ LUC1 = 6E-011
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 5000
+
+.ENDS MNN
+
+*.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/19/2017
+*  File name            :MNNI.lib
+*  Model ver.           :Ver.0.1
+*  Simulator            :hspice
+*  Model call name      :MNNI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 05/31/2017 : Ver 0.2
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 05/19/2017 : Ver.0.1
+* Correct typo  mnn_du0 = -0.000043 -> -0.000047 for fs
+
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters as MNN (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MNNI  D G S B Sub L=1u W=1u M=1 AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MNNI_M l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+D1 B Sub MNNI_D
+
+.PARAM MNNI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mnni_dtox = 'MOS_Sigma_Global*(MNNI_dtox_StDev)'
+.PARAM MNNI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mnni_dxl = 'MOS_Sigma_Global*(MNNI_dxl_StDev)'
+.PARAM MNNI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mnni_dxw = 'MOS_Sigma_Global*(MNNI_dxw_StDev)'
+.PARAM MNNI_dvth0_StDev = '0.100/3.0'
+*.PARAM mnni_dvth0 = 'NMOS_Sigma_Global*(MNNI_dvth0_StDev)'
+.PARAM MNNI_du0_StDev_Slow = '-4.300E-05/3.0'
+.PARAM MNNI_du0_StDev_Fast = '-4.700E-05/3.0'
+.PARAM MNNI_du0_Mean_MC = '0'
+.PARAM MNNI_du0_Mean_Ctr_MC = '-4.500E-05'
+.PARAM MNNI_du0_StDev_Ctr_MC = '2.000E-06/3'
+.PARAM MNNI_du0_Sigma = NMOS_Sigma_Global
+*.PARAM MNNI_du0_StDev_sigma = '((MNNI_du0_Sigma<0) ? MNNI_du0_StDev_Fast : MNNI_du0_StDev_Slow)'
+*.PARAM MNNI_du0_Sig = '(abs(MNNI_du0_Sigma)*MNNI_du0_StDev_sigma)'
+*.PARAM MNNI_du0_MC = 'MNNI_du0_Sig'
+*.PARAM MNNI_du0_MC = 'MNNI_du0_Mean_Ctr_MC + MNNI_du0_Sigma*MNNI_du0_StDev_Ctr_MC'
+*.PARAM mnni_du0 = '((NMOS_MC_Flag>0) ? MNNI_du0_MC : MNNI_du0_Sig)'
+
+.MODEL MNNI_D D
++ IS = 1E-016
++ N = 1
++ BV = 16
++ IBV = 0.001
++ RS = 7
++ CJO = 0
++ VJ = 1
++ M = 0.5
++ FC = 0.5
++ TT = 0
++ EG = 1.11
++ XTI = 4
+
+.MODEL MNNI_M NMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mnni_dtox'
++ XJ = 2.5E-007
++ NCH = 1.6E+017
++ VTH0 = '0.1756 + mnni_dvth0'
++ K1 = 0.4094
++ K2 = 0.06078
++ K3 = 10
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 8.009E-007
++ DVT0 = 2
++ DVT1 = 0.7678
++ DVT2 = 0.02202
++ DVT0W = 0.1323
++ DVT1W = 1.305E+005
++ DVT2W = -0.0255
++ U0 = '0.05102 + mnni_du0'
++ UA = 3.432E-010
++ UB = 3E-018
++ UC = 4.872E-011
++ VSAT = 6.626E+004
++ A0 = 1.585
++ AGS = 0.2022
++ B0 = 0
++ B1 = 0
++ KETA = -0.03
++ A1 = 0
++ A2 = 1
++ RDSW = 1300
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = 8.182E-009
++ WINT = 1.5E-007
++ XL = '0 + mnni_dxl'
++ XW = '0 + mnni_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.06781
++ NFACTOR = 0.3864
++ CIT = 0
++ CDSC = 0.00024
++ CDSCD = 0
++ CDSCB = 2.721E-005
++ ETA0 = 0.13
++ ETAB = -0.038
++ DSUB = 0.56
++ PCLM = 5
++ PDIBLC1 = 0.05447
++ PDIBLC2 = 0.001
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 5.93E+008
++ PSCBE2 = 5E-005
++ PVAG = 0
++ DELTA = 0.02
++ ALPHA0 = 2E-007
++ BETA0 = 36
++ ALPHA1 = 12.5
++ RSH = 40
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.47
++ KT1 = -0.2723
++ KT1L = -6E-008
++ KT2 = -0.02747
++ UA1 = 3.257E-009
++ UB1 = -5.429E-018
++ UC1 = -2.403E-011
++ AT = 3.137E+004
++ PRT = 882.5
++ WL = -6.2E-014
++ WLN = 1
++ WW = -4.843E-014
++ WWN = 1
++ WWL = 5E-020
++ LL = 4.362E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = -0.07003
++ WVTH0 = -0.0138
++ PVTH0 = 0
++ LK1 = -0.06819
++ WK1 = 0.025
++ PK1 = 0
++ LU0 = -0.001214
++ WU0 = 0.001445
++ PU0 = 0
++ LUA = -9.268E-010
++ WUA = 6.999E-010
++ PUA = -3.5E-010
++ LUB = -1E-018
++ WUB = -1.385E-018
++ PUB = 3E-019
++ LUC = -1.119E-010
++ WUC = -6E-011
++ PUC = 0
++ LA0 = -0.397
++ WA0 = 0.03451
++ PA0 = 0
++ LAGS = -0.0128
++ WAGS = -0.03688
++ PAGS = 0
++ LKETA = 0.02
++ WKETA = 0.01373
++ PKETA = -0.025
++ LALPHA0 = 0
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = 0
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0
++ WBETA0 = 0
++ PBETA0 = 0
++ LKT1 = 0.02208
++ WKT1 = 0
++ PKT1 = 0
++ LKT2 = 0.002256
++ WKT2 = 0
++ PKT2 = 0
++ LUTE = -0.2447
++ WUTE = 0.1
++ PUTE = 0
++ LUA1 = -1.652E-009
++ WUA1 = 0
++ PUA1 = 0
++ LUB1 = 2.816E-018
++ WUB1 = -3E-019
++ PUB1 = 0
++ LUC1 = 6E-011
++ WUC1 = 0
++ PUC1 = 0
++ XTI = 3
++ PVSAT = 5000
+
+.ENDS MNNi
+
+*.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPL.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPL
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpl_dvth0, MPL_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpl_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mpl_dvth0 = -0.001628 -> 0, mpl_du0 = -0.0003953 -> 0
+*     ss mpl_dtox = 0 -> 1.00e-9, mpl_dxl = 0 -> 4.50e-8, mpl_dxw = 0 -> -3.00e-8
+*     ss mpl_dvth0 = -0.1012 -> -0.100, mpl_du0 = -0.0005556 -> -0.0001603
+*     ff mpl_dtox = 0 -> -1.00e-9, mpl_dxl = 0 -> -4.50e-8, mpl_dxw = 0 -> 3.00e-8
+*     ff mpl_dvth0 = 0.09788 -> 0.100, mpl_du0 = -0.0002818 -> 0.0001135
+*     sf mpl_dvth0 = 0.09788 -> 0.100, mpl_du0 = -0.0002818 -> 0.0001135
+*     fs mpl_dvth0 = -0.1012 -> -0.100, mpl_du0 = -0.0005556 -> -0.0001603
+*
+*  Model parameters modified
+*     VTH0 = '-0.603 + mpl_dvth0' -> '0.6046 + mpl_dvth0'
+*     U0 = '0.02328 + mpl_du0' -> '0.02288 + mpl_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPL D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPL l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPL_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpl_dtox = 'MOS_Sigma_Global*(MPL_dtox_StDev)'
+.PARAM MPL_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpl_dxl = 'MOS_Sigma_Global*(MPL_dxl_StDev)'
+.PARAM MPL_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpl_dxw = 'MOS_Sigma_Global*(MPL_dxw_StDev)'
+.PARAM MPL_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpl_dvth0 = 'PMOS_Sigma_Global*(MPL_dvth0_StDev)'
+.PARAM MPL_du0_StDev_Slow = '-1.603E-04/3.0'
+.PARAM MPL_du0_StDev_Fast = '1.135E-04/3.0'
+.PARAM MPL_du0_Mean_MC = '0'
+.PARAM MPL_du0_Mean_Ctr_MC = '-2.340E-05'
+.PARAM MPL_du0_StDev_Ctr_MC = '-1.369E-04/3'
+.PARAM MPL_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPL_du0_StDev_sigma = '((MPL_du0_Sigma<0) ? MPL_du0_StDev_Fast : MPL_du0_StDev_Slow)'
+*.PARAM MPL_du0_Sig = '(abs(MPL_du0_Sigma)*MPL_du0_StDev_sigma)'
+*.PARAM MPL_du0_MC = 'MPL_du0_Sig'
+*.PARAM MPL_du0_MC = 'MPL_du0_Mean_Ctr_MC + MPL_du0_Sigma*MPL_du0_StDev_Ctr_MC'
+*.PARAM mpl_du0 = '((PMOS_MC_Flag>0) ? MPL_du0_MC : MPL_du0_Sig)'
+
+.MODEL MPL PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpl_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.6046 + mpl_dvth0'
++ K1 = 0.6908
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02288 + mpl_du0'
++ UA = 2.759E-009
++ UB = 2.479E-019
++ UC = -4.783E-011
++ VSAT = 8.388E+004
++ A0 = 0.35
++ AGS = 0.01
++ B0 = 0
++ B1 = 0
++ KETA = 0.00369
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpl_dxl'
++ XW = '0 + mpl_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.132
++ NFACTOR = 0.7561
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0.0001
++ ETA0 = 4.89
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0007646
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.002324
++ ALPHA0 = 1.387E-005
++ BETA0 = 30.84
++ ALPHA1 = 0.4071
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.095
++ KT1 = -0.4864
++ KT1L = 1.815E-008
++ KT2 = -0.02468
++ UA1 = 4.137E-009
++ UB1 = -7.718E-018
++ UC1 = -7.115E-011
++ AT = 3.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -4.2E-014
++ WWN = 1
++ WWL = 3.97E-020
++ LL = -4.702E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1723
++ WVTH0 = 0.02339
++ PVTH0 = -0.03398
++ LK1 = -0.0122
++ WK1 = -0.03267
++ PK1 = -0.03762
++ LU0 = 0.003
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -1.492E-009
++ WUA = 1.964E-009
++ PUA = -5.358E-010
++ LUB = 8.115E-019
++ WUB = -1.757E-018
++ PUB = -1.89E-019
++ LUC = 0
++ WUC = -1.2E-010
++ PUC = 0
++ LA0 = 0
++ WA0 = 0.223
++ PA0 = -0.6
++ LAGS = 0
++ WAGS = 0
++ PAGS = 0
++ LKETA = -0.01227
++ WKETA = 0.00267
++ PKETA = -0.01
++ LALPHA0 = 3.662E-007
++ WALPHA0 = 8.166E-007
++ PALPHA0 = 1.516E-007
++ LALPHA1 = -13.9
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 1.494
++ WBETA0 = 1
++ PBETA0 = 1.722
++ LKT1 = -0.07908
++ WKT1 = 0.04072
++ PKT1 = -0.01972
++ LKT2 = -0.03774
++ WKT2 = -0.03177
++ PKT2 = 0.03139
++ LUTE = 0.1731
++ WUTE = 0
++ PUTE = 0.2222
++ LUA1 = -2.139E-009
++ WUA1 = 0
++ PUA1 = 1.338E-009
++ LUB1 = -2.608E-019
++ WUB1 = 0
++ PUB1 = -1.908E-018
++ LUC1 = -1.7E-010
++ WUC1 = 0
++ PUC1 = 0
++ LVOFF = 0.1
++ WVOFF = -0.05603
++ XTI = 3
++ PVSAT = -1.2E+004
+
+.ENDS MPL
+
+.ENDL mos   comment out by tsuchiya*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPL2.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPL2
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpl2_dvth0, MPL2_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpl2_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+*    Typo correction of revision history on 04/10/2017
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mpl2_dvth0 = -0.002852 -> 0, mpl2_du0 = -0.0009635 -> 0
+*     ss mpl2_dtox = 0 -> 1.00e-9, mpl2_dxl = 0 -> 4.50e-8, mpl2_dxw = 0 -> -3.00e-8
+*     ss mpl2_dvth0 = -0.1024 -> -0.100, mpl2_du0 = -0.001019 -> -0.0000555
+*     ff mpl2_dtox = 0 -> -1.00e-9, mpl2_dxl = 0 -> -4.50e-8, mpl2_dxw = 0 -> 3.00e-8
+*     ff mpl2_dvth0 = 0.0968 -> 0.100, mpl2_du0 = -0.0009472 -> 0.0000163
+*     sf mpl2_dvth0 = 0.0968 -> 0.100, mpl2_du0 = -0.0009472 -> 0.0000163
+*     fs mpl2_dvth0 = -0.1024 -> -0.100, mpl2_du0 = -0.001019 -> -0.0000555
+*
+*  Model parameters modified
+*     VTH0 = '-0.2828 + mpl2_dvth0' -> '0.2857 + mpl2_dvth0'
+*     U0 = '0.02328 + mpl2_du0' -> '0.02232 + mpl2_du0'
+*     CDSCD = -0.0001281 -> 0
+*
+* -------------- PDK release.Ver.-----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* Modified parameter
+*  MPL2: LUA1 = -2.61E-009 <- -2.51E-009
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPL2 D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPL2 l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPL2_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpl2_dtox = 'MOS_Sigma_Global*(MPL2_dtox_StDev)'
+.PARAM MPL2_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpl2_dxl = 'MOS_Sigma_Global*(MPL2_dxl_StDev)'
+.PARAM MPL2_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpl2_dxw = 'MOS_Sigma_Global*(MPL2_dxw_StDev)'
+.PARAM MPL2_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpl2_dvth0 = 'PMOS_Sigma_Global*(MPL2_dvth0_StDev)'
+.PARAM MPL2_du0_StDev_Slow = '-5.550E-05/3.0'
+.PARAM MPL2_du0_StDev_Fast = '1.630E-05/3.0'
+.PARAM MPL2_du0_Mean_MC = '0'
+.PARAM MPL2_du0_Mean_Ctr_MC = '-1.960E-05'
+.PARAM MPL2_du0_StDev_Ctr_MC = '-3.590E-05/3'
+.PARAM MPL2_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPL2_du0_StDev_sigma = '((MPL2_du0_Sigma<0) ? MPL2_du0_StDev_Fast : MPL2_du0_StDev_Slow)'
+*.PARAM MPL2_du0_Sig = '(abs(MPL2_du0_Sigma)*MPL2_du0_StDev_sigma)'
+*.PARAM MPL2_du0_MC = 'MPL2_du0_Sig'
+*.PARAM MPL2_du0_MC = 'MPL2_du0_Mean_Ctr_MC + MPL2_du0_Sigma*MPL2_du0_StDev_Ctr_MC'
+*.PARAM mpl2_du0 = '((PMOS_MC_Flag>0) ? MPL2_du0_MC : MPL2_du0_Sig)'
+
+.MODEL MPL2 PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpl2_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.2857 + mpl2_dvth0'
++ K1 = 0.7626
++ K2 = 0
++ K3 = 1.8
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02232 + mpl2_du0'
++ UA = 2.609E-009
++ UB = 1.179E-019
++ UC = -1.078E-010
++ VSAT = 6.275E+004
++ A0 = 0.8386
++ AGS = 0.1099
++ B0 = 0
++ B1 = 0
++ KETA = -0.01723
++ A1 = 0
++ A2 = 1
++ RDSW = 1668
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpl2_dxl'
++ XW = '0 + mpl2_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.09998
++ NFACTOR = 0.8776
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 6.41
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 3
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0001017
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 3.01E-005
++ BETA0 = 39.34
++ ALPHA1 = 0.2846
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.128
++ KT1 = -0.6155
++ KT1L = 1.815E-008
++ KT2 = -0.07
++ UA1 = 4.508E-009
++ UB1 = -8.208E-018
++ UC1 = -1.712E-010
++ AT = 2.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -4.2E-014
++ WWN = 1
++ WWL = 3.97E-020
++ LL = -4.702E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1183
++ WVTH0 = -0.00339
++ PVTH0 = 0.03
++ LK1 = -0.0492
++ WK1 = -0.0327
++ PK1 = 0
++ LU0 = 0.003
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -1.492E-009
++ WUA = 1.964E-009
++ PUA = -5.358E-010
++ LUB = 6.115E-019
++ WUB = -1.757E-018
++ PUB = -1.89E-019
++ LUC = 0
++ WUC = -1.2E-010
++ PUC = 0
++ LA0 = -0.7139
++ WA0 = 0.08185
++ PA0 = 0
++ LAGS = -0.1
++ WAGS = -0.02145
++ PAGS = 0
++ LKETA = -0.008821
++ WKETA = 0.006018
++ PKETA = -0.02
++ LALPHA0 = -1.573E-005
++ WALPHA0 = -9.95E-006
++ PALPHA0 = 3.261E-006
++ LALPHA1 = -8.921
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0.3947
++ WBETA0 = -1.083
++ PBETA0 = -6.749
++ LKT1 = -0.0551
++ WKT1 = 0
++ PKT1 = 0
++ LKT2 = -0.03237
++ WKT2 = 0
++ PKT2 = 0
++ LUTE = 0.1713
++ WUTE = 0
++ PUTE = 0
++ LUA1 = -2.61E-009
++ WUA1 = 0
++ PUA1 = 0
++ LUB1 = -2.368E-019
++ WUB1 = 0
++ PUB1 = 0
++ LUC1 = -1.1E-010
++ WUC1 = 0
++ PUC1 = 0
++ LVOFF = 0
++ WVOFF = -0.2
++ WCDSCB = 0.0003
++ PETA0 = -1
++ PVSAT = 0
++ XTI = 3
+
+.ENDS MPL2
+
+.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPL2I.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPL2I
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpl2i_dvth0, MPL2I_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpl2i_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters(except for VTH0) as MPL2 (without Iso option): Ver.0.0
+*   CDSCD = -0.0001281 -> 0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPL2I D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPL2I l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPL2I_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpl2i_dtox = 'MOS_Sigma_Global*(MPL2I_dtox_StDev)'
+.PARAM MPL2I_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpl2i_dxl = 'MOS_Sigma_Global*(MPL2I_dxl_StDev)'
+.PARAM MPL2I_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpl2i_dxw = 'MOS_Sigma_Global*(MPL2I_dxw_StDev)'
+.PARAM MPL2I_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpl2i_dvth0 = 'PMOS_Sigma_Global*(MPL2I_dvth0_StDev)'
+.PARAM MPL2I_du0_StDev_Slow = '-5.550E-05/3.0'
+.PARAM MPL2I_du0_StDev_Fast = '1.630E-05/3.0'
+.PARAM MPL2I_du0_Mean_MC = '0'
+.PARAM MPL2I_du0_Mean_Ctr_MC = '-1.960E-05'
+.PARAM MPL2I_du0_StDev_Ctr_MC = '-3.590E-05/3'
+.PARAM MPL2I_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPL2I_du0_StDev_sigma = '((MPL2I_du0_Sigma<0) ? MPL2I_du0_StDev_Fast : MPL2I_du0_StDev_Slow)'
+*.PARAM MPL2I_du0_Sig = '(abs(MPL2I_du0_Sigma)*MPL2I_du0_StDev_sigma)'
+*.PARAM MPL2I_du0_MC = 'MPL2I_du0_Sig'
+*.PARAM MPL2I_du0_MC = 'MPL2I_du0_Mean_Ctr_MC + MPL2I_du0_Sigma*MPL2I_du0_StDev_Ctr_MC'
+*.PARAM mpl2i_du0 = '((PMOS_MC_Flag>0) ? MPL2I_du0_MC : MPL2I_du0_Sig)'
+
+.MODEL MPL2I PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpl2i_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.2957 + mpl2i_dvth0'
++ K1 = 0.7626
++ K2 = 0
++ K3 = 1.8
++ K3B = 0
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02232 + mpl2i_du0'
++ UA = 2.609E-009
++ UB = 1.179E-019
++ UC = -1.078E-010
++ VSAT = 6.275E+004
++ A0 = 0.8386
++ AGS = 0.1099
++ B0 = 0
++ B1 = 0
++ KETA = -0.01723
++ A1 = 0
++ A2 = 1
++ RDSW = 1668
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpl2i_dxl'
++ XW = '0 + mpl2i_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.09998
++ NFACTOR = 0.8776
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 6.41
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 3
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0001017
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 3.01E-005
++ BETA0 = 39.34
++ ALPHA1 = 0.2846
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.128
++ KT1 = -0.6155
++ KT1L = 1.815E-008
++ KT2 = -0.07
++ UA1 = 4.508E-009
++ UB1 = -8.208E-018
++ UC1 = -1.712E-010
++ AT = 2.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -4.2E-014
++ WWN = 1
++ WWL = 3.97E-020
++ LL = -4.702E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1183
++ WVTH0 = -0.00339
++ PVTH0 = 0.03
++ LK1 = -0.0492
++ WK1 = -0.0327
++ PK1 = 0
++ LU0 = 0.003
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -1.492E-009
++ WUA = 1.964E-009
++ PUA = -5.358E-010
++ LUB = 6.115E-019
++ WUB = -1.757E-018
++ PUB = -1.89E-019
++ LUC = 0
++ WUC = -1.2E-010
++ PUC = 0
++ LA0 = -0.7139
++ WA0 = 0.08185
++ PA0 = 0
++ LAGS = -0.1
++ WAGS = -0.02145
++ PAGS = 0
++ LKETA = -0.008821
++ WKETA = 0.006018
++ PKETA = -0.02
++ LALPHA0 = -1.573E-005
++ WALPHA0 = -9.95E-006
++ PALPHA0 = 3.261E-006
++ LALPHA1 = -8.921
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 0.3947
++ WBETA0 = -1.083
++ PBETA0 = -6.749
++ LKT1 = -0.0551
++ WKT1 = 0
++ PKT1 = 0
++ LKT2 = -0.03237
++ WKT2 = 0
++ PKT2 = 0
++ LUTE = 0.1713
++ WUTE = 0
++ PUTE = 0
++ LUA1 = -2.61E-009
++ WUA1 = 0
++ PUA1 = 0
++ LUB1 = -2.368E-019
++ WUB1 = 0
++ PUB1 = 0
++ LUC1 = -1.1E-010
++ WUC1 = 0
++ PUC1 = 0
++ LVOFF = 0
++ WVOFF = -0.2
++ WCDSCB = 0.0003
++ PETA0 = -1
++ PVSAT = 0
++ XTI = 3
+
+.ENDS MPL2I
+
+.ENDL mos   comment out by tsuchiya
+*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPLI.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPLI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+** 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpli_dvth0, MPLI_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpli_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters(except for VTH0) as MPL (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPLI D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPLI l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPLI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpli_dtox = 'MOS_Sigma_Global*(MPLI_dtox_StDev)'
+.PARAM MPLI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpli_dxl = 'MOS_Sigma_Global*(MPLI_dxl_StDev)'
+.PARAM MPLI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpli_dxw = 'MOS_Sigma_Global*(MPLI_dxw_StDev)'
+.PARAM MPLI_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpli_dvth0 = 'PMOS_Sigma_Global*(MPLI_dvth0_StDev)'
+.PARAM MPLI_du0_StDev_Slow = '-1.603E-04/3.0'
+.PARAM MPLI_du0_StDev_Fast = '1.135E-04/3.0'
+.PARAM MPLI_du0_Mean_MC = '0'
+.PARAM MPLI_du0_Mean_Ctr_MC = '-2.340E-05'
+.PARAM MPLI_du0_StDev_Ctr_MC = '-1.369E-04/3'
+.PARAM MPLI_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPLI_du0_StDev_sigma = '((MPLI_du0_Sigma<0) ? MPLI_du0_StDev_Fast : MPLI_du0_StDev_Slow)'
+*.PARAM MPLI_du0_Sig = '(abs(MPLI_du0_Sigma)*MPLI_du0_StDev_sigma)'
+*.PARAM MPLI_du0_MC = 'MPLI_du0_Sig'
+*.PARAM MPLI_du0_MC = 'MPLI_du0_Mean_Ctr_MC + MPLI_du0_Sigma*MPLI_du0_StDev_Ctr_MC'
+*.PARAM mpli_du0 = '((PMOS_MC_Flag>0) ? MPLI_du0_MC : MPLI_du0_Sig)'
+
+.MODEL MPLI PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpli_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.6146 + mpli_dvth0'
++ K1 = 0.6908
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02288 + mpli_du0'
++ UA = 2.759E-009
++ UB = 2.479E-019
++ UC = -4.783E-011
++ VSAT = 8.388E+004
++ A0 = 0.35
++ AGS = 0.01
++ B0 = 0
++ B1 = 0
++ KETA = 0.00369
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpli_dxl'
++ XW = '0 + mpli_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.132
++ NFACTOR = 0.7561
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0.0001
++ ETA0 = 4.89
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0007646
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.002324
++ ALPHA0 = 1.387E-005
++ BETA0 = 30.84
++ ALPHA1 = 0.4071
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.095
++ KT1 = -0.4864
++ KT1L = 1.815E-008
++ KT2 = -0.02468
++ UA1 = 4.137E-009
++ UB1 = -7.718E-018
++ UC1 = -7.115E-011
++ AT = 3.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -4.2E-014
++ WWN = 1
++ WWL = 3.97E-020
++ LL = -4.702E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1723
++ WVTH0 = 0.02339
++ PVTH0 = -0.03398
++ LK1 = -0.0122
++ WK1 = -0.03267
++ PK1 = -0.03762
++ LU0 = 0.003
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -1.492E-009
++ WUA = 1.964E-009
++ PUA = -5.358E-010
++ LUB = 8.115E-019
++ WUB = -1.757E-018
++ PUB = -1.89E-019
++ LUC = 0
++ WUC = -1.2E-010
++ PUC = 0
++ LA0 = 0
++ WA0 = 0.223
++ PA0 = -0.6
++ LAGS = 0
++ WAGS = 0
++ PAGS = 0
++ LKETA = -0.01227
++ WKETA = 0.00267
++ PKETA = -0.01
++ LALPHA0 = 3.662E-007
++ WALPHA0 = 8.166E-007
++ PALPHA0 = 1.516E-007
++ LALPHA1 = -13.9
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = 1.494
++ WBETA0 = 1
++ PBETA0 = 1.722
++ LKT1 = -0.07908
++ WKT1 = 0.04072
++ PKT1 = -0.01972
++ LKT2 = -0.03774
++ WKT2 = -0.03177
++ PKT2 = 0.03139
++ LUTE = 0.1731
++ WUTE = 0
++ PUTE = 0.2222
++ LUA1 = -2.139E-009
++ WUA1 = 0
++ PUA1 = 1.338E-009
++ LUB1 = -2.608E-019
++ WUB1 = 0
++ PUB1 = -1.908E-018
++ LUC1 = -1.7E-010
++ WUC1 = 0
++ PUC1 = 0
++ LVOFF = 0.1
++ WVOFF = -0.05603
++ XTI = 3
++ PVSAT = -1.2E+004
+
+.ENDS MPLI
+
+.ENDL mos   comment out by tsuchiya*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPM.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPM
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpm_dvth0, MPM_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpm_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mpm_dvth0 = 0.0007243 -> 0, mpm_du0 = 5.592E-005 -> 0
+*     ss mpm_dtox = 0 -> 1.00e-9, mpm_dxl = 0 -> 4.50e-8, mpm_dxw = 0 -> -3.00e-8
+*     ss mpm_dvth0 = -0.09899 -> -0.100, mnm_du0 = -5.731E-005 -> -1.13e-4
+*     ff mpm_dtox = 0 -> -1.00e-9, mpm_dxl = 0 -> -4.50e-8, mpm_dxw = 0 -> 3.00e-8
+*     ff mpm_dvth0 = 0.1005 -> 0.100, mpm_du0 = 0.0001111 -> 5.52e-5
+*     sf mpm_dvth0 = 0.1005 -> 0.100, mpm_du0 = 0.0001111 -> 5.52e-5
+*     fs mpm_dvth0 = -0.09899 -> -0.100, mpm_du0 = -5.731E-005 -> -1.13e-4
+*
+*  Model parameters modified
+*     VTH0 = '-0.807 + mpm_dvth0' -> '0.8063 + mpm_dvth0'
+*     U0 = '0.02463 + mpm_du0' -> '0.02469 + mpm_du0'
+*
+* -------------- PDK release.Ver.-----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPM D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPM l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPM_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpm_dtox = 'MOS_Sigma_Global*(MPM_dtox_StDev)'
+.PARAM MPM_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpm_dxl = 'MOS_Sigma_Global*(MPM_dxl_StDev)'
+.PARAM MPM_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpm_dxw = 'MOS_Sigma_Global*(MPM_dxw_StDev)'
+.PARAM MPM_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpm_dvth0 = 'PMOS_Sigma_Global*(MPM_dvth0_StDev)'
+.PARAM MPM_du0_StDev_Slow = '-1.130E-04/3.0'
+.PARAM MPM_du0_StDev_Fast = '5.520E-05/3.0'
+.PARAM MPM_du0_Mean_MC = '0'
+.PARAM MPM_du0_Mean_Ctr_MC = '-2.890E-05'
+.PARAM MPM_du0_StDev_Ctr_MC = '-8.410E-05/3'
+.PARAM MPM_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPM_du0_StDev_sigma = '((MPM_du0_Sigma<0) ? MPM_du0_StDev_Fast : MPM_du0_StDev_Slow)'
+*.PARAM MPM_du0_Sig = '(abs(MPM_du0_Sigma)*MPM_du0_StDev_sigma)'
+*.PARAM MPM_du0_MC = 'MPM_du0_Sig'
+*.PARAM MPM_du0_MC = 'MPM_du0_Mean_Ctr_MC + MPM_du0_Sigma*MPM_du0_StDev_Ctr_MC'
+*.PARAM mpm_du0 = '((PMOS_MC_Flag>0) ? MPM_du0_MC : MPM_du0_Sig)'
+
+.MODEL MPM PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpm_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.8063 + mpm_dvth0'
++ K1 = 0.6398
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02469 + mpm_du0'
++ UA = 2.734E-009
++ UB = 8.609E-019
++ UC = -9.05E-011
++ VSAT = 6.088E+004
++ A0 = 1.033
++ AGS = 0.105
++ B0 = 0
++ B1 = 0
++ KETA = -0.00469
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpm_dxl'
++ XW = '0 + mpm_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.07946
++ NFACTOR = 0.2635
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 1.111
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1.3
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.003
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 1.745E-005
++ BETA0 = 37.37
++ ALPHA1 = 0.4071
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.561
++ KT1 = -0.4947
++ KT1L = 1.815E-008
++ KT2 = -0.0756
++ UA1 = 1.735E-009
++ UB1 = -7E-018
++ UC1 = 7.12E-011
++ AT = 2.809E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -3.5E-014
++ WWN = 1
++ WWL = -2E-020
++ LL = 0
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.09305
++ WVTH0 = 0.02339
++ PVTH0 = 0
++ LK1 = -0.03539
++ WK1 = -0.03267
++ PK1 = 0
++ LU0 = 0
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -9E-010
++ WUA = 1.964E-009
++ PUA = 5E-010
++ LUB = 0
++ WUB = -1.157E-018
++ PUB = -3E-019
++ LUC = 0
++ WUC = 0
++ PUC = 0
++ LA0 = -1.3
++ WA0 = 0.273
++ PA0 = 0
++ LAGS = 0
++ WAGS = 0
++ PAGS = 0.15
++ LKETA = -0.02357
++ WKETA = 0.01067
++ PKETA = 0.002366
++ LALPHA0 = -1.115E-006
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = -15.29
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = -3.013
++ WBETA0 = 0.6
++ PBETA0 = 0
++ LKT1 = -0.006926
++ WKT1 = 0.03038
++ PKT1 = -0.04312
++ LKT2 = 0.01446
++ WKT2 = 0.001132
++ PKT2 = 0.001364
++ LUTE = 0.8027
++ WUTE = -0.3753
++ PUTE = -0.4618
++ LUA1 = 3.214E-009
++ WUA1 = -3.712E-009
++ PUA1 = -1.789E-009
++ LUB1 = -4.95E-018
++ WUB1 = 2.563E-018
++ PUB1 = 1.203E-018
++ LUC1 = -2.3E-010
++ WUC1 = 0
++ PUC1 = 0
++ WVOFF = -0.05603
++ XTI = 3
++ LCDSC = 0.0002
++ LCDSCB = 0.0001
+
+.ENDS MPM
+
+.ENDL mos   comment out by tsuchiya*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPMI.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPMI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpmi_dvth0, MPMI_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpmi_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters(except for VTH0) as MPM (without Iso option): Ver.0.0
+*   .param modified
+*     tt mpmi_dvth0 = 0.01073 -> 0, mpmi_du0 = 5.517E-005 -> 0
+*     ss mpmi_dtox = 0 -> 1.00e-9, mpmi_dxl = 0 -> 4.50e-8, mpmi_dxw = 0 -> -3.00e-8
+*     ss mpmi_dvth0 = -0.08904 -> -0.100, mnm_du0 = -5.501E-005 -> -1.13e-4
+*     ff mpmi_dtox = 0 -> -1.00e-9, mpmi_dxl = 0 -> -4.50e-8, mpmi_dxw = 0 -> 3.00e-8
+*     ff mpmi_dvth0 = 0.1105 -> 0.100, mpmi_du0 = 1.124e-4 -> 5.52e-5
+*     sf mpmi_dvth0 = 0.1105 -> 0.100, mpmi_du0 = 1.124e-4 -> 5.52e-5
+*     fs mpmi_dvth0 = -0.08904 -> -0.100, mpmi_du0 = -5.501E-005 -> -1.13e-4
+*
+*  Model parameters modified
+*     VTH0 = '-0.817 + mpmi_dvth0' -> '0.8163 + mpmi_dvth0'
+*     U0 = '0.02463 + mpmi_du0' -> '0.02469 + mpmi_du0'
+*
+* -------------- PDK release.Ver.-----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/17/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPMI D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPMI l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPMI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpmi_dtox = 'MOS_Sigma_Global*(MPMI_dtox_StDev)'
+.PARAM MPMI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpmi_dxl = 'MOS_Sigma_Global*(MPMI_dxl_StDev)'
+.PARAM MPMI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpmi_dxw = 'MOS_Sigma_Global*(MPMI_dxw_StDev)'
+.PARAM MPMI_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpmi_dvth0 = 'PMOS_Sigma_Global*(MPMI_dvth0_StDev)'
+.PARAM MPMI_du0_StDev_Slow = '-1.130E-04/3.0'
+.PARAM MPMI_du0_StDev_Fast = '5.520E-05/3.0'
+.PARAM MPMI_du0_Mean_MC = '0'
+.PARAM MPMI_du0_Mean_Ctr_MC = '-2.890E-05'
+.PARAM MPMI_du0_StDev_Ctr_MC = '-8.410E-05/3'
+.PARAM MPMI_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPMI_du0_StDev_sigma = '((MPMI_du0_Sigma<0) ? MPMI_du0_StDev_Fast : MPMI_du0_StDev_Slow)'
+*.PARAM MPMI_du0_Sig = '(abs(MPMI_du0_Sigma)*MPMI_du0_StDev_sigma)'
+*.PARAM MPMI_du0_MC = 'MPMI_du0_Sig'
+*.PARAM MPMI_du0_MC = 'MPMI_du0_Mean_Ctr_MC + MPMI_du0_Sigma*MPMI_du0_StDev_Ctr_MC'
+*.PARAM mpmi_du0 = '((PMOS_MC_Flag>0) ? MPMI_du0_MC : MPMI_du0_Sig)'
+
+.MODEL MPMI PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpmi_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-0.8163 + mpmi_dvth0'
++ K1 = 0.6398
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1482
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02469 + mpmi_du0'
++ UA = 2.734E-009
++ UB = 8.609E-019
++ UC = -9.05E-011
++ VSAT = 6.088E+004
++ A0 = 1.033
++ AGS = 0.105
++ B0 = 0
++ B1 = 0
++ KETA = -0.00469
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpmi_dxl'
++ XW = '0 + mpmi_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.07946
++ NFACTOR = 0.2635
++ CIT = 0
++ CDSC = 4E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 1.111
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1.3
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.003
++ PDIBLCB = 0
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 1.745E-005
++ BETA0 = 37.37
++ ALPHA1 = 0.4071
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.561
++ KT1 = -0.4947
++ KT1L = 1.815E-008
++ KT2 = -0.0756
++ UA1 = 1.735E-009
++ UB1 = -7E-018
++ UC1 = 7.12E-011
++ AT = 2.809E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -3.5E-014
++ WWN = 1
++ WWL = -2E-020
++ LL = 0
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.09305
++ WVTH0 = 0.02339
++ PVTH0 = 0
++ LK1 = -0.03539
++ WK1 = -0.03267
++ PK1 = 0
++ LU0 = 0
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -9E-010
++ WUA = 1.964E-009
++ PUA = 5E-010
++ LUB = 0
++ WUB = -1.157E-018
++ PUB = -3E-019
++ LUC = 0
++ WUC = 0
++ PUC = 0
++ LA0 = -1.3
++ WA0 = 0.273
++ PA0 = 0
++ LAGS = 0
++ WAGS = 0
++ PAGS = 0.15
++ LKETA = -0.02357
++ WKETA = 0.01067
++ PKETA = 0.002366
++ LALPHA0 = -1.115E-006
++ WALPHA0 = 0
++ PALPHA0 = 0
++ LALPHA1 = -15.29
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = -3.013
++ WBETA0 = 0.6
++ PBETA0 = 0
++ LKT1 = -0.006926
++ WKT1 = 0.03038
++ PKT1 = -0.04312
++ LKT2 = 0.01446
++ WKT2 = 0.001132
++ PKT2 = 0.001364
++ LUTE = 0.8027
++ WUTE = -0.3753
++ PUTE = -0.4618
++ LUA1 = 3.214E-009
++ WUA1 = -3.712E-009
++ PUA1 = -1.789E-009
++ LUB1 = -4.95E-018
++ WUB1 = 2.563E-018
++ PUB1 = 1.203E-018
++ LUC1 = -2.3E-010
++ WUC1 = 0
++ PUC1 = 0
++ WVOFF = -0.05603
++ XTI = 3
++ LCDSC = 0.0002
++ LCDSCB = 0.0001
+
+.ENDS MPMI
+
+.ENDL mos   comment out by tsuchiya*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPN.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPN
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpn_dvth0, MPN_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpn_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+*    Typo correction of revision history on 04/10/2017
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   .param modified
+*     tt mpn_dvth0 = 0.009142 -> 0, mpn_du0 = -0.0009612 -> 0
+*     ss mpn_dtox = 0 -> 1.00e-9, mpn_dxl = 0 -> 4.50e-8, mpn_dxw = 0 -> -3.00e-8
+*     ss mpn_dvth0 = -0.09072 -> -0.100, mpn_du0 = -0.001093 -> -0.0001318
+*     ff mpn_dtox = 0 -> -1.00e-9, mpn_dxl = 0 -> -4.50e-8, mpn_dxw = 0 -> 3.00e-8
+*     ff mpn_dvth0 = 0.109 -> 0.100, mpn_du0 = -0.0009024 -> 0.0000588
+*     sf mpn_dvth0 = 0.109 -> 0.100, mpn_du0 = -0.0009024 -> 0.0000588
+*     fs mpn_dvth0 = -0.09072 -> -0.100, mpn_du0 = -0.001093 -> -0.0001318
+*
+*  Model parameters modified
+*     VTH0 = '-1.307 + mpn_dvth0' -> '-1.2979 + mpn_dvth0'
+*     U0 = '0.02463 + mpn_du0' -> '0.02367 + mpn_du0'
+*
+* -------------- PDK release.Ver.----------------
+*
+* ----------------- Beta.Ver.--------------------
+* 03/08/2017 : Ver.2.00
+* Added corner model
+*
+* 02/27/2017 : Ver.1.00
+* First release
+*
+* ----------------- Beta.Ver.--------------------
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPN D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPN l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPN_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpn_dtox = 'MOS_Sigma_Global*(MPN_dtox_StDev)'
+.PARAM MPN_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpn_dxl = 'MOS_Sigma_Global*(MPN_dxl_StDev)'
+.PARAM MPN_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpn_dxw = 'MOS_Sigma_Global*(MPN_dxw_StDev)'
+.PARAM MPN_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpn_dvth0 = 'PMOS_Sigma_Global*(MPN_dvth0_StDev)'
+.PARAM MPN_du0_StDev_Slow = '-1.318E-04/3.0'
+.PARAM MPN_du0_StDev_Fast = '5.880E-05/3.0'
+.PARAM MPN_du0_Mean_MC = '0'
+.PARAM MPN_du0_Mean_Ctr_MC = '-3.650E-05'
+.PARAM MPN_du0_StDev_Ctr_MC = '-9.530E-05/3'
+.PARAM MPN_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPN_du0_StDev_sigma = '((MPN_du0_Sigma<0) ? MPN_du0_StDev_Fast : MPN_du0_StDev_Slow)'
+*.PARAM MPN_du0_Sig = '(abs(MPN_du0_Sigma)*MPN_du0_StDev_sigma)'
+*.PARAM MPN_du0_MC = 'MPN_du0_Sig'
+*.PARAM MPN_du0_MC = 'MPN_du0_Mean_Ctr_MC + MPN_du0_Sigma*MPN_du0_StDev_Ctr_MC'
+*.PARAM mpn_du0 = '((PMOS_MC_Flag>0) ? MPN_du0_MC : MPN_du0_Sig)'
+
+.MODEL MPN PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpn_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-1.2979 + mpn_dvth0'
++ K1 = 0.6614
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1082
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02367 + mpn_du0'
++ UA = 2.879E-009
++ UB = 1.053E-018
++ UC = -6.041E-011
++ VSAT = 7.507E+004
++ A0 = 1.322
++ AGS = 0.1603
++ B0 = 0
++ B1 = 0
++ KETA = -0.000153
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpn_dxl'
++ XW = '0 + mpn_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.05295
++ NFACTOR = 0.1996
++ CIT = 0
++ CDSC = 2E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 8
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1.2
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0003
++ PDIBLCB = -1
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 0.0001001
++ BETA0 = 44.57
++ ALPHA1 = 10.99
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.124
++ KT1 = -0.4115
++ KT1L = 1.815E-008
++ KT2 = -0.04035
++ UA1 = 3.801E-009
++ UB1 = -6.653E-018
++ UC1 = -7.115E-011
++ AT = 3.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -5.753E-014
++ WWN = 1
++ WWL = 4.643E-020
++ LL = -7.095E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1183
++ WVTH0 = 0.02339
++ PVTH0 = 0.02
++ LK1 = -0.0492
++ WK1 = -0.03267
++ PK1 = 0
++ LU0 = 0.001988
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -2.3E-009
++ WUA = 2E-009
++ PUA = -1E-009
++ LUB = 8.322E-019
++ WUB = -1.099E-018
++ PUB = 5.279E-020
++ LUC = 0
++ WUC = 0
++ PUC = 0
++ LA0 = -1
++ WA0 = 1.147
++ PA0 = -0.994
++ LAGS = 0
++ WAGS = 0.01
++ PAGS = -0.1
++ LKETA = -0.037
++ WKETA = 0.01067
++ PKETA = 0.01914
++ LALPHA0 = 1.025E-005
++ WALPHA0 = 0.0002579
++ PALPHA0 = -0.0002391
++ LALPHA1 = -112
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = -3
++ WBETA0 = 5
++ PBETA0 = -8.552
++ LKT1 = -0.01446
++ WKT1 = 0.008615
++ PKT1 = -0.001337
++ LKT2 = -0.0009773
++ WKT2 = -0.007649
++ PKT2 = 0.005545
++ LUTE = 0.3109
++ WUTE = 0.1
++ PUTE = 0
++ LUA1 = -1.267E-009
++ WUA1 = 6E-010
++ PUA1 = -2E-010
++ LUB1 = -2.502E-019
++ WUB1 = 0
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ PETA0 = -2.5
++ XTI = 3
++ PAT = -2E+004
+
+.ENDS MPN
+
+.ENDL mos   comment out by tsuchiya*********************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :07/13/2017
+*  File name            :MPNI.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :T-Spice
+*  Model call name      :MPNI
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*********************************************************************
+*
+* 07/13/2017 : Ver 0.2
+*    Correct typo following parameters
+*        mpni_dvth0, MPNI_du0_Sigma; NMOS_Sigma_Global -> PMOS_Sigma_Global
+*        mpni_du0; NMOS_MC_Flag -> PMOS_MC_Flag
+*
+* 06/01/2017 : Ver 0.1
+*  Added support for Monte Carlo so that the delta uo is between the slow and
+*		fast corners and uses the slow corner as 3-sigma value if the Monte Carlo
+*		random variable is positive and uses the fast corner as the 3-sigma value
+*		if the Monte Carlo is negative.
+*
+* 04/10/2017 : Ver.0.0
+* First release
+*   same parameters(except for VTH0) as MPN (without Iso option): Ver.0.0
+*
+*********************************************************************
+
+*.LIB mos    comment out by tsuchiya
+
+.SUBCKT MPNI D G S B L=1u W=1u AD=1p AS=1p PD=1u PS=1u NRD=248.48485m NRS=248.48485m
+M1 D G S B MPNI l='L' w='W' m='M' ad='AD' as='AS' pd='PD' ps='PS' nrd='NRD' nrs='NRS'
+
+.PARAM MPNI_dtox_StDev = '1.00E-09/3.0'
+*.PARAM mpni_dtox = 'MOS_Sigma_Global*(MPNI_dtox_StDev)'
+.PARAM MPNI_dxl_StDev = '4.50e-8/3.0'
+*.PARAM mpni_dxl = 'MOS_Sigma_Global*(MPNI_dxl_StDev)'
+.PARAM MPNI_dxw_StDev = '-3.00E-08/3.0'
+*.PARAM mpni_dxw = 'MOS_Sigma_Global*(MPNI_dxw_StDev)'
+.PARAM MPNI_dvth0_StDev = '-0.100/3.0'
+*.PARAM mpni_dvth0 = 'PMOS_Sigma_Global*(MPNI_dvth0_StDev)'
+.PARAM MPNI_du0_StDev_Slow = '-1.318E-04/3.0'
+.PARAM MPNI_du0_StDev_Fast = '5.880E-05/3.0'
+.PARAM MPNI_du0_Mean_MC = '0'
+.PARAM MPNI_du0_Mean_Ctr_MC = '-3.650E-05'
+.PARAM MPNI_du0_StDev_Ctr_MC = '-9.530E-05/3'
+.PARAM MPNI_du0_Sigma = PMOS_Sigma_Global
+*.PARAM MPNI_du0_StDev_sigma = '((MPNI_du0_Sigma<0) ? MPNI_du0_StDev_Fast : MPNI_du0_StDev_Slow)'
+*.PARAM MPNI_du0_Sig = '(abs(MPNI_du0_Sigma)*MPNI_du0_StDev_sigma)'
+*.PARAM MPNI_du0_MC = 'MPNI_du0_Sig'
+*.PARAM MPNI_du0_MC = 'MPNI_du0_Mean_Ctr_MC + MPNI_du0_Sigma*MPNI_du0_StDev_Ctr_MC'
+*.PARAM mpni_du0 = '((PMOS_MC_Flag>0) ? MPNI_du0_MC : MPNI_du0_Sig)'
+
+.MODEL MPNI PMOS
++ LEVEL = 49
++ VERSION = 3.3
++ TNOM = 27
++ MOBMOD = 1
++ CAPMOD = 2
++ PARAMCHK = 1
++ NQSMOD = 0
++ TOX = '1.350E-008 + mpni_dtox'
++ XJ = 2E-007
++ NCH = 8.1E+017
++ VTH0 = '-1.3079 + mpni_dvth0'
++ K1 = 0.6614
++ K2 = 0
++ K3 = 1.8
++ K3B = -7.097
++ W0 = 2.5E-006
++ NLX = 5.399E-007
++ DVT0 = 0.1082
++ DVT1 = 0.01223
++ DVT2 = -0.1752
++ DVT0W = 0
++ DVT1W = 6.557E-007
++ DVT2W = -0.032
++ U0 = '0.02367 + mpni_du0'
++ UA = 2.879E-009
++ UB = 1.053E-018
++ UC = -6.041E-011
++ VSAT = 7.507E+004
++ A0 = 1.322
++ AGS = 0.1603
++ B0 = 0
++ B1 = 0
++ KETA = -0.000153
++ A1 = 0
++ A2 = 1
++ RDSW = 1686
++ PRWG = 0
++ PRWB = 0
++ WR = 1
++ LINT = -3.458E-008
++ WINT = 3.19E-008
++ XL = '0 + mpni_dxl'
++ XW = '0 + mpni_dxw'
++ DWG = 0
++ DWB = 0
++ VOFF = -0.05295
++ NFACTOR = 0.1996
++ CIT = 0
++ CDSC = 2E-005
++ CDSCD = 0
++ CDSCB = 0
++ ETA0 = 8
++ ETAB = -0.07
++ DSUB = 0.56
++ PCLM = 1.2
++ PDIBLC1 = 0.39
++ PDIBLC2 = 0.0003
++ PDIBLCB = -1
++ DROUT = 0.56
++ PSCBE1 = 1E+009
++ PSCBE2 = 1E-005
++ PVAG = 0
++ DELTA = 0.003368
++ ALPHA0 = 0.0001001
++ BETA0 = 44.57
++ ALPHA1 = 10.99
++ RSH = 90
++ HDIF = 8E-007
++ XPART = 0
++ VOFFCV = 0
++ CGDO = 0
++ CGSO = 0
++ CGBO = 0
++ CGSL = 0
++ CGDL = 0
++ CKAPPA = 0.6
++ CF = 0
++ CLC = 1E-007
++ CLE = 0.6
++ DLC = 0
++ DWC = 0
++ NOFF = 1
++ ACDE = 1
++ MOIN = 15
++ JS = 2.5E-007
++ JSW = 0
++ IJTH = 0.1
++ CJ = 0.0005
++ MJ = 0.5
++ PB = 1
++ CJSW = 5E-010
++ MJSW = 0.33
++ PBSW = 1
++ CJSWG = 5E-010
++ MJSWG = 0.33
++ PBSWG = 1
++ UTE = -1.124
++ KT1 = -0.4115
++ KT1L = 1.815E-008
++ KT2 = -0.04035
++ UA1 = 3.801E-009
++ UB1 = -6.653E-018
++ UC1 = -7.115E-011
++ AT = 3.07E+004
++ PRT = 4048
++ WL = 0
++ WLN = 1
++ WW = -5.753E-014
++ WWN = 1
++ WWL = 4.643E-020
++ LL = -7.095E-014
++ LLN = 1
++ LW = 0
++ LWN = 1
++ LWL = 0
++ NOIMOD = 2
++ NOIA = 1E+020
++ NOIB = 5E+004
++ NOIC = -1.4E-012
++ EM = 4.1E+007
++ AF = 1
++ EF = 1
++ KF = 0
++ LINTNOI = 0
++ TCJ = 0
++ TCJSW = 0
++ TCJSWG = 0
++ TPB = 0
++ TPBSW = 0
++ TPBSWG = 0
++ LVTH0 = 0.1183
++ WVTH0 = 0.02339
++ PVTH0 = 0.02
++ LK1 = -0.0492
++ WK1 = -0.03267
++ PK1 = 0
++ LU0 = 0.001988
++ WU0 = -0.000386
++ PU0 = 0
++ LUA = -2.3E-009
++ WUA = 2E-009
++ PUA = -1E-009
++ LUB = 8.322E-019
++ WUB = -1.099E-018
++ PUB = 5.279E-020
++ LUC = 0
++ WUC = 0
++ PUC = 0
++ LA0 = -1
++ WA0 = 1.147
++ PA0 = -0.994
++ LAGS = 0
++ WAGS = 0.01
++ PAGS = -0.1
++ LKETA = -0.037
++ WKETA = 0.01067
++ PKETA = 0.01914
++ LALPHA0 = 1.025E-005
++ WALPHA0 = 0.0002579
++ PALPHA0 = -0.0002391
++ LALPHA1 = -112
++ WALPHA1 = 0
++ PALPHA1 = 0
++ LBETA0 = -3
++ WBETA0 = 5
++ PBETA0 = -8.552
++ LKT1 = -0.01446
++ WKT1 = 0.008615
++ PKT1 = -0.001337
++ LKT2 = -0.0009773
++ WKT2 = -0.007649
++ PKT2 = 0.005545
++ LUTE = 0.3109
++ WUTE = 0.1
++ PUTE = 0
++ LUA1 = -1.267E-009
++ WUA1 = 6E-010
++ PUA1 = -2E-010
++ LUB1 = -2.502E-019
++ WUB1 = 0
++ PUB1 = 0
++ LUC1 = 0
++ WUC1 = 0
++ PUC1 = 0
++ PETA0 = -2.5
++ XTI = 3
++ PAT = -2E+004
+
+.ENDS MPNI
+
+.ENDL mos   comment out by tsuchiya
+******* marge all Resister models by tsuchiya 20190620
+*parameter from Res_Models.lib by tsuchiya
+	.PARAM Res_Sigma = 0
+	.PARAM Res_RPH2_Sigma = Res_Sigma
+******** End
+
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :10/27/2017
+*  File name            :RFS.lib
+*  Model ver.           :Ver.0.2
+*  Simulator            :hspice
+*  Model call name      :RFS
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved. 
+*************************************************************************
+* 10/27/2017 : Ver.0.2
+*  change: RFS_Rnom = '54 + 1G*blown' -> '84 + 1G*blown'
+*
+* 05/16/2017 : Ver.0.1
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*
+* 04/19/2017 : Ver.0.0
+* First release 
+*
+*************************************************************************
+***** Poly Fuse Resistor *******
+*** RFS ***
+
+.SUBCKT RFS Pos Neg blown=0
+.PARAM RFS_Rnom = '84 + 1G*blown' 
+.PARAM RFS_VC1 = 2.338E-3
+.PARAM RFS_VC2 = 2.757E-3
+
+.MODEL RFS_Model R TC1=1.498E-03 TC2=-1.642E-6 *VC1='RFS_VC1' VC2='RFS_VC2'
+
+*RBody  Pos Neg RFS_Model R='RFS_Rnom'
+*RBody  Pos Neg RFS_Model R='RFS_Rnom*(1 + RFS_VC1*V(Pos,Neg) + RFS_VC2*V(Pos,Neg)*V(Pos,Neg))'
+*.MODEL RFS R  R = 54 TC1=1.498E-03 TC2=-1.642E-6 VC1=2.338E-3 VC2=2.757E-3
+.ENDS
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RN.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :RN
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.3
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.2
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*
+*************************************************************************
+***** N+diffusion Resistor *******
+*** RN ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RN Pos Neg L=100u W=10u
+
+.PARAM RN_BodyRshMean = 36
+.PARAM RN_BodyRshStDev = '10.95/3.0'
+.PARAM RN_BodyRsh = 'RN_BodyRshMean + Res_Sigma*(RN_BodyRshStDev)'
+
+.PARAM RN_VC1 = 0
+.PARAM RN_VC2 = 3.036E-04
+
+.PARAM RN_dL=0
+.PARAM RN_dW=0
+.PARAM RN_Rend=0
+
+.PARAM RN_Leff='L+RN_dL'
+.PARAM RN_Weff='W+RN_dW'
+.PARAM RN_Rhead='RN_Rend/W'
+.PARAM RN_RBody='RN_BodyRsh*RN_Leff/RN_Weff'
+
+.MODEL RN_MODEL R TC1=1.656E-03 TC2=9.830E-07 TNOM=27
+*VC2='RN_VC2'
+
+RheadP Pos 1 R='RN_Rhead'
+*RBody  1   2 RN_MODEL R='RN_RBody*(1 + RN_VC1*V(1,2) + RN_VC2*V(1,2)*V(1,2))' ***modify tsuchiya
+RBody  1   2 R='RN_RBody'
+RheadN 2 Neg R='RN_Rhead'
+
+*RBody Pos Neg RN_MODEL R='RN_RBody*(1 + RN_VC1*V(Pos,Neg) + RN_VC2*V(Pos,Neg)*V(Pos,Neg))'
+
+.ENDS RN
+
+*.ENDL res    comment out by tsuchiya
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RNW.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :RNW
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.3
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.2
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*
+*************************************************************************
+***** NW Resistor *******
+*** RNW ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RNW Pos Neg L=100u W=10u
+
+.PARAM RNW_BodyRshMean = 554
+.PARAM RNW_BodyRshStDev = '97/3.0'
+.PARAM RNW_BodyRsh = 'RNW_BodyRshMean + Res_Sigma*(RNW_BodyRshStDev)'
+
+.PARAM RNW_VC1 = 0
+.PARAM RNW_VC2 = 1.106E-03
+
+.PARAM RNW_dL=0
+.PARAM RNW_dW=-0.286e-6
+.PARAM RNW_Rend=0
+
+.PARAM RNW_Leff='L+RNW_dL'
+.PARAM RNW_Weff='W+RNW_dW'
+.PARAM RNW_Rhead='RNW_Rend/W'
+.PARAM RNW_RBody='RNW_BodyRsh*RNW_Leff/RNW_Weff'
+
+*.MODEL RNW_MODEL R TC1=2.982E-03 TC2=9.926E-06 TNOM=27  ***modify tsuchiya
+.MODEL RNW_MODEL R='554 * (l/w)' TC1=2.982E-03 TC2=9.926E-06 TNOM=27
+*VC2=RNW_VC2
+
+RheadP Pos 1   R='RNW_Rhead'
+*RBody  1   2   RNW_MODEL R='RNW_RBody*(1 + RNW_VC1*V(1,2) + RNW_VC2*V(1,2)*V(1,2))'  ***modify tsuchiya
+RBody  1   2   R='RNW_RBody'
+RheadN 2   Neg R='RNW_Rhead'
+
+*RBody   Pos Neg RNW_MODEL R='RNW_RBody*(1 + RNW_VC1*V(Pos,Neg) + RNW_VC2*V(Pos,Neg)*V(Pos,Neg))'
+
+.ENDS RNW
+
+*.ENDL res    comment out by tsuchiya
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/23/2017
+*  File name            :RP.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :RP
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.3
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.2
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*
+*************************************************************************
+***** P+diffusion Resistor *******
+*** RP ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RP Pos Neg L=100u W=10u
+
+.PARAM RP_BodyRshMean = 112
+.PARAM RP_BodyRshStDev = '20/3.0'
+.PARAM RP_BodyRsh = 'RP_BodyRshMean + Res_Sigma*(RP_BodyRshStDev)'
+
+.PARAM RP_VC1 = 0
+.PARAM RP_VC2 = 1.614E-04
+
+.PARAM RP_dL=0
+.PARAM RP_dW=-0.072E-06
+.PARAM RP_Rend=0
+
+.PARAM RP_Leff='L+RP_dL'
+.PARAM RP_Weff='W+RP_dW'
+.PARAM RP_Rhead='RP_Rend/W'
+.PARAM RP_RBody='RP_BodyRsh*RP_Leff/RP_Weff'
+
+*.MODEL RP_MODEL R TC1=1.453E-03 TC2=9.000E-07 TNOM=27  ** modify tsuchiy
+.MODEL RP_MODEL R='112 * (l/w)' TC1=1.453E-03 TC2=9.000E-07 TNOM=27
+*VC2='RP_VC2'
+
+RheadP Pos 1   R='RP_Rhead'
+*RBody  1   2   RP_MODEL R='RP_RBody*(1 + RP_VC1*V(1,2) + RP_VC2*V(1,2)*V(1,2))'
+RBody  1   2    R='RP_RBody'
+RheadN 2   Neg R='RP_Rhead'
+
+*RBody Pos  Neg  RP_MODEL R='RP_RBody*(1 + RP_VC1*V(Pos,Neg) + RP_VC2*V(Pos,Neg)*V(Pos,Neg))'
+
+.ENDS RP
+
+*.ENDL res    comment out by tsuchiya
+************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RPH.lib
+*  Model ver.           :Ver.0.4
+*  Simulator            :T-Spice
+*  Model call name      :RPH
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.4
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.3
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.2
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 05/10/2017 : Ver.0.1
+*  BodyRsh_h; tt:4863 -> 4973, ff:3336 -> 3467, ss:6390 -> 6480
+*  dL: -3.379e-6 -> -3.137e-6
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*************************************************************************
+
+***** Poly Resistor *******
+*** RPH ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RPH Pos Neg L=100u W=10u
+
+.PARAM RPH_BodyRshMean = 4973
+.PARAM RPH_BodyRshStDev = '1506.5/3.0'
+.PARAM RPH_BodyRsh = 'RPH_BodyRshMean + Res_Sigma*(RPH_BodyRshStDev)'
+.PARAM RPH_TC1_Mean = -2.99E-03
+.PARAM RPH_TC1_StDev = '-487.000E-6/3.0'
+.PARAM RPH_TC1 = 'RPH_TC1_Mean + Res_Sigma*(RPH_TC1_StDev)'
+.PARAM RPH_TC2_Mean = 8.24E-06
+.PARAM RPH_TC2_StDev = '2.654E-6/3.0'
+.PARAM RPH_TC2 = 'RPH_TC2_Mean + Res_Sigma*(RPH_TC2_StDev)'
+.PARAM RPH_VC1_Mean = 0
+.PARAM RPH_VC1_StDev = 0
+.PARAM RPH_VC1 = 'RPH_VC1_Mean + Res_Sigma*(RPH_VC1_StDev)'
+.PARAM RPH_VC2_Mean = -3.96E-04
+.PARAM RPH_VC2_StDev = '44.700E-6/3.0'
+.PARAM RPH_VC2 = 'RPH_VC2_Mean + Res_Sigma*(RPH_VC2_StDev)'
+
+.PARAM RPH_dL=-3.137e-6
+.PARAM RPH_dW=-0.178e-6
+.PARAM RPH_Rend=140u
+
+.PARAM RPH_Leff='L+RPH_dL'
+.PARAM RPH_Weff='W+RPH_dW'
+.PARAM RPH_Rhead='RPH_Rend/W'
+.PARAM RPH_RBody='RPH_BodyRsh*RPH_Leff/RPH_Weff'
+
+*.MODEL RPH_MODEL R TC1='RPH_TC1' TC2='RPH_TC2' TNOM=27   **modify tsuchiya
+.MODEL RPH_MODEL R='4973 * (l/w)' TC1='RPH_TC1' TC2='RPH_TC2' TNOM=27
+*VC2='RPH_VC2'
+
+RheadP Pos 1 R='RPH_Rhead'
+*RBody  1   2 RPH_MODEL R='RPH_RBody*(1 + RPH_VC1*V(1,2) + RPH_VC2*V(1,2)*V(1,2))'
+RBody  1   2  R='RPH_RBody'
+RheadN 2 Neg R='RPH_Rhead'
+
+.ENDS RPH
+
+*.ENDL res    comment out by tsuchiya
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RPH2.lib
+*  Model ver.           :Ver.0.4
+*  Simulator            :T-Spice
+*  Model call name      :RPH2
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.4
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.3
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.2
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 05/10/2017 : Ver.0.1
+*  BodyRsh_h2; tt:7916 -> 7986, ff:4863 -> 4973, ss:11988 -> 12003
+*  dL: -3.379e-6 -> -3.259e-6
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*************************************************************************
+***** Poly Resistor *******
+*** RPH2 ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RPH2 Pos Neg L=100u W=10u
+** add 2 lines by tsuchiya	
+	.PARAM Res_Sigma = 0
+	.PARAM Res_RPH2_Sigma = Res_Sigma
+	
+.PARAM RPH2_BodyRshMean = 7986
+.PARAM RPH2_BodyRshStDev = '3013/3.0'
+.PARAM RPH2_BodyRsh = 'RPH2_BodyRshMean + Res_RPH2_Sigma*(RPH2_BodyRshStDev)'
+.PARAM RPH2_TC1_Mean = -3.97E-03
+.PARAM RPH2_TC1_StDev = '-974.000E-6/3.0'
+.PARAM RPH2_TC1 = 'RPH2_TC1_Mean + Res_RPH2_Sigma*(RPH2_TC1_StDev)'
+.PARAM RPH2_TC2_Mean = 1.35E-05
+.PARAM RPH2_TC2_StDev = '5.305E-6/3.0'
+.PARAM RPH2_TC2 = 'RPH2_TC2_Mean + Res_RPH2_Sigma*(RPH2_TC2_StDev)'
+.PARAM RPH2_VC1_Mean = 0
+.PARAM RPH2_VC1_StDev = 0
+.PARAM RPH2_VC1 = 'RPH2_VC1_Mean + Res_RPH2_Sigma*(RPH2_VC1_StDev)'
+.PARAM RPH2_VC2_Mean = -3.06E-04
+.PARAM RPH2_VC2_StDev = '89.400E-6/3.0'
+.PARAM RPH2_VC2 = 'RPH2_VC2_Mean + Res_RPH2_Sigma*(RPH2_VC2_StDev)'
+.PARAM RPH2_dL=-3.259e-6
+.PARAM RPH2_dW=-0.178e-6
+.PARAM RPH2_Rend=140u
+
+.PARAM RPH2_Leff='L+RPH2_dL'
+.PARAM RPH2_Weff='W+RPH2_dW'
+.PARAM RPH2_Rhead='RPH2_Rend/W'
+.PARAM RPH2_RBody='RPH2_BodyRsh*RPH2_Leff/RPH2_Weff'
+
+*.MODEL RPH2_MODEL R TC1='RPH2_TC1' TC2='RPH2_TC2' TNOM=27   **modify tsuchiya
+.MODEL RPH2_MODEL R='7986 * (l/w)' TC1='RPH2_TC1' TC2='RPH2_TC2' TNOM=27
+*VC2='RPH2_VC2'
+
+RheadP Pos 1 R='RPH2_Rhead'
+*RBody  1   2 RPH2_MODEL R='RPH2_RBody*(1 + RPH2_VC1*V(1,2) + RPH2_VC2*V(1,2)*V(1,2))'
+RBody  1   2  R='RPH2_RBody'
+RheadN 2 Neg R='RPH2_Rhead'
+
+.ENDS RPH2
+
+*.ENDL res    comment out by tsuchiya
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RPL.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :RPL
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.3
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.2
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*
+*************************************************************************
+***** Poly Resistor *******
+*** RPL ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RPL Pos Neg L=100u W=10u
+
+.PARAM RPL_BodyRshMean = 89.9
+.PARAM RPL_BodyRshStDev = '9.45/3.0'
+.PARAM RPL_BodyRsh = 'RPL_BodyRshMean + Res_Sigma*(RPL_BodyRshStDev)'
+.PARAM RPL_VC1 = 0
+.PARAM RPL_VC2 = 4.017E-03
+
+.PARAM RPL_dL=-2.322e-6
+.PARAM RPL_dW=-0.217e-6
+.PARAM RPL_Rend=140u
+
+.PARAM RPL_Leff='L+RPL_dL'
+.PARAM RPL_Weff='W+RPL_dW'
+.PARAM RPL_Rhead='RPL_Rend/W'
+.PARAM RPL_RBody='RPL_BodyRsh*RPL_Leff/RPL_Weff'
+
+*.MODEL RPL_MODEL R TC1=5.530E-04 TC2=9.461E-07 TNOM=27   **modify tsuchiya
+.MODEL RPL_MODEL R='89.9 * (l/w)' TC1=5.530E-04 TC2=9.461E-07 TNOM=27
+*VC2='RPL_VC2'
+
+RheadP Pos 1 R='RPL_Rhead'
+*RBody  1   2 RPL_MODEL R='RPL_RBody*(1 + RPL_VC1*V(1,2) + RPL_VC2*V(1,2)*V(1,2))'
+RBody  1   2  R='RPL_RBody'
+RheadN 2 Neg R='RPL_Rhead'
+
+.ENDS RPL
+
+*.ENDL res    comment out by tsuchiya
+*************************************************************************
+*  Process              :CMOS 0.35um process(PK35B)
+*  Date                 :05/24/2017
+*  File name            :RPM.lib
+*  Model ver.           :Ver.0.3
+*  Simulator            :T-Spice
+*  Model call name      :RPM
+*  TNOM                 :27 degree(with temperature model)
+*  Copyrigth(c) PHENITEC SEMICONDUCTOR Corp. 2017 All rigths reserved.
+*************************************************************************
+*
+* 05/24/2017 : Ver.0.3
+*  Changed Standard Deviation value to a formula = 3-sigma / 3.0.
+*  Added TNOM=27 to the resistor model card.
+*
+* 05/16/2017 : Ver.0.2
+*  Had to put the Voltage Coefficient in the calculation of capacitance because HSPICE & TSPICE
+*    use the following formula R = Rnom*(1 + VC1*abs(V) + VC2*V*V).
+*    Technically, not needed because VC1=0 but just in case in the future if VC1 becomes !=0
+*
+* 05/15/2017 : Ver.0.1
+*  Converted Model file to be sigma based and enable monte carlo.
+*  Included resistor model to handle Voltage Coefficient correctly.
+*
+* 04/04/2017 : Ver.0.0
+* First release
+*
+*************************************************************************
+***** Poly Resistor *******
+*** RPM ***
+*.LIB res    comment out by tsuchiya
+
+.SUBCKT RPM Pos Neg L=100u W=10u
+
+.PARAM RPM_BodyRshMean = 320
+.PARAM RPM_BodyRshStDev = '75.5/3.0'
+.PARAM RPM_BodyRsh = 'RPM_BodyRshMean + Res_Sigma*(RPM_BodyRshStDev)'
+.PARAM RPM_TC1_Mean = -1.82E-05
+.PARAM RPM_TC1_StDev = '-205.700E-6/3.0'
+.PARAM RPM_TC1 = 'RPM_TC1_Mean + Res_Sigma*(RPM_TC1_StDev)'
+.PARAM RPM_VC1_Mean = 0
+.PARAM RPM_VC1_StDev = 0
+.PARAM RPM_VC1 = 'RPM_VC1_Mean + Res_Sigma*(RPM_VC1_StDev)'
+.PARAM RPM_VC2_Mean = -1.13E-05
+.PARAM RPM_VC2_StDev = '-315.050E-6/3.0'
+.PARAM RPM_VC2 = 'RPM_VC2_Mean + Res_Sigma*(RPM_VC2_StDev)'
+
+.PARAM RPM_dL=-2.531e-6
+.PARAM RPM_dW=-0.181e-6
+.PARAM RPM_Rend=140u
+
+.PARAM RPM_Leff='L+RPM_dL'
+.PARAM RPM_Weff='W+RPM_dW'
+.PARAM RPM_Rhead='RPM_Rend/W'
+.PARAM RPM_RBody='RPM_BodyRsh*RPM_Leff/RPM_Weff'
+
+*.MODEL RPM_MODEL R TC1='RPM_TC1' TNOM=27   ** modify tsuchiya
+.MODEL RPM_MODEL R='320 * (l/w)' TC1='RPM_TC1' TNOM=27
+*VC2='RPM_VC2'
+
+RheadP Pos 1 R='RPM_Rhead'
+*RBody  1   2 RPM_MODEL R='RPM_RBody*(1 + RPM_VC1*V(1,2) + RPM_VC2*V(1,2)*V(1,2))'
+RBody  1   2  R='RPM_RBody'
+RheadN 2 Neg R='RPM_Rhead'
+
+.ENDS RPM

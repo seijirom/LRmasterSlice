@@ -1,0 +1,14 @@
+Version 4
+SymbolType BLOCK
+RECTANGLE Normal 32 47 -32 -48
+TEXT -81 58 Left 2 PowerOnReset
+WINDOW 0 -14 93 Bottom 2
+PIN -32 -32 RIGHT 8
+PINATTR PinName VDDA
+PINATTR SpiceOrder 1
+PIN 32 -32 LEFT 8
+PINATTR PinName POR
+PINATTR SpiceOrder 3
+PIN -32 32 RIGHT 8
+PINATTR PinName VSSA
+PINATTR SpiceOrder 2

@@ -1,0 +1,62 @@
+Circuit: * Z:\home\seijirom\Dropbox\work\LRmasterSlice\pipe_line_ADC\tb_pipe_line_adc_8bit.asc
+
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+Gmin = 0.00132923
+Gmin = 0.000142725
+vernier = 0.5
+Gmin = 3.28467e-005
+vernier = 0.25
+vernier = 0.333333
+Gmin = 1.9813e-005
+vernier = 0.444444
+vernier = 0.592592
+Gmin = 6.80591e-006
+vernier = 0.790123
+Gmin = 1.32793e-006
+vernier = 1
+Gmin = 1.42585e-007
+Gmin = 1.531e-008
+Gmin = 1.6439e-009
+Gmin = 1.76512e-010
+Gmin = 1.89528e-011
+Gmin = 2.03505e-012
+Gmin = 2.18511e-013
+Gmin = 0
+Gmin stepping succeeded in finding the operating point.
+
+
+Date: Thu Oct 24 22:34:37 2019
+Total elapsed time: 30.545 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 14681
+traniter = 13863
+tranpoints = 5603
+accept = 5121
+rejected = 482
+matrix size = 168
+fillins = 372
+solver = Normal
+Thread vector: 669.9/450.4[4] 149.8/94.7[4] 25.0/192.9[1] 36.4/375.4[1]  2592/500
+Matrix Compiler1: 53.85 KB object code size  33.4/16.0/[11.3]
+Matrix Compiler2: 40.12 KB object code size  12.6/10.9/[7.6]
+

@@ -1,0 +1,20 @@
+Circuit: * C:\Users\seijirom\Dropbox\work\LRmasterSlice\pipe_line_ADC\tb_pipe_line_base_trun.asc
+
+WARNING: Can't resolve .param cpip_cox=cpip_coxmean+cap_sigma*(cpip_coxstdev)
+WARNING: Can't resolve .param cpip_cnom=cpip_cox*cpip_area+cpip_csw*cpip_peri
+Questionable use of curly braces in ".param cpip_cox = {cpip_coxmean+cap_sigma*(cpip_coxstdev)}"
+    Error: undefined symbol in: "cpip_coxmean+[cap_sigma]*(cpip_coxstdev)"
+Questionable use of curly braces in ".param cpip_cnom = {cpip_cox*cpip_area+cpip_csw*cpip_peri}"
+    Error: yet unevaluated parameter in: "[cpip_cox*]cpip_area+cpip_csw*cpip_peri"
+Questionable use of curly braces in "cmain pos neg cpip {cpip_cnom*m}"
+    Error: yet unevaluated parameter in: "[cpip_cnom*]m"
+WARNING: Can't resolve .param cpip_cox=cpip_coxmean+cap_sigma*(cpip_coxstdev)
+WARNING: Can't resolve .param cpip_cnom=cpip_cox*cpip_area+cpip_csw*cpip_peri
+Questionable use of curly braces in ".param cpip_cox = {cpip_coxmean+cap_sigma*(cpip_coxstdev)}"
+    Error: undefined symbol in: "cpip_coxmean+[cap_sigma]*(cpip_coxstdev)"
+Questionable use of curly braces in ".param cpip_cnom = {cpip_cox*cpip_area+cpip_csw*cpip_peri}"
+    Error: yet unevaluated parameter in: "[cpip_cox*]cpip_area+cpip_csw*cpip_peri"
+Questionable use of curly braces in "cmain pos neg cpip {cpip_cnom*m}"
+    Error: yet unevaluated parameter in: "[cpip_cnom*]m"
+WARNING: Can't resolve .param cpip_cox=cpip_coxmean+cap_sigma*(cpip_coxstdev)
+WARNING: Can't resolve .param cpip_cnom=cpip_cox*cpip_area+cpip_csw*cpip_peri

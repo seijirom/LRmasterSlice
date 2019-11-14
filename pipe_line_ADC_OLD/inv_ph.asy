@@ -1,0 +1,18 @@
+Version 4
+SymbolType BLOCK
+LINE Normal -32 48 -32 -48
+LINE Normal 48 0 -32 48
+LINE Normal -32 -48 48 0
+CIRCLE Normal 63 8 48 -7
+PIN -32 0 NONE 8
+PINATTR PinName A
+PINATTR SpiceOrder 1
+PIN 16 -48 VLEFT 8
+PINATTR PinName DVDD
+PINATTR SpiceOrder 2
+PIN 0 48 NONE 8
+PINATTR PinName DVSS
+PINATTR SpiceOrder 3
+PIN 64 0 NONE 8
+PINATTR PinName Y
+PINATTR SpiceOrder 4
