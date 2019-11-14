@@ -1,0 +1,17 @@
+File.read('COMP_NLF.asc').each_line{|l|
+  l.chomp!
+  if l =~ /SYMBOL (\S+) (\S+) (\S+) (\S+)/
+    sym = $1
+    x = $2
+    y = $3
+    rot=$3
+  elsif l =~ /SYMATTR InstName (\S+)/
+    name = $1
+  elsif l =~ /SYMATTR SpiceLine l=(\S+)u w=(\S+)u .* m=(\S+)/ ||
+        l =~ /SYMATTR SpiceLine l=(\S+)u w=(\S+)u/
+    l=$1
+    w=$2
+    m=$3
+    puts "#{name}: l=#{l} w=#{w} m=#{m ? m : 1} @ (#{x}, #{y}), #{rot}"
+  end
+}
