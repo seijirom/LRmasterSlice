@@ -2,7 +2,7 @@
 
 .subckt comp_plf INP INN XSTBY OUT VDDA VSSA
 M33 vbp_B vbn_B N007 vssa nch l=1.2u w=6.45u pd=w+l+l ps=pd ad=w*l as=ad m=1
-M34 NC_01 vbp_B vbn_B VDDA pch l=1.2u w=13.8u pd=w+l+l ps=pd ad=w*l as=ad m=1
+M34 VDDA vbp_B vbn_B VDDA pch l=1.2u w=13.8u pd=w+l+l ps=pd ad=w*l as=ad m=1
 M37 VDDA vbp_B vbp_B VDDA pch l=1.2u w=13.8u pd=w+l+l ps=pd ad=w*l as=ad m=1
 M38 vbn_B vbn_B N006 vssa nch l=1.2u w=6.45u pd=w+l+l ps=pd ad=w*l as=ad m=1
 M39 N010 xstby vssa vssa nch l=2.0u w=3.3u pd=w+l+l ps=pd ad=w*l as=ad m=1
