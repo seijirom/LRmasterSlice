@@ -12,3 +12,4 @@ def res_ext_settings
   netlist.combine_devices
   schematic.combine_devices
 end
+
